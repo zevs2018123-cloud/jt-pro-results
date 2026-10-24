@@ -265,8 +265,8 @@ function renderCards(){
     <div class="g ${a.gain < 0 ? 'down' : ''}">${pct(a.gain)}</div>
     ${spark(a.s)}
     <div class="meta"><span>${fmtMon(a.from)} – ${a.active ? 'now' : fmtMon(a.to)}</span><span>Max DD ${Math.abs(a.dd).toFixed(1)}%</span></div>
-  </button>`).join('');
-  $('cards').querySelectorAll('.card').forEach(b => b.onclick = () => { sel = b.dataset.k; renderCards(); renderDetail(); $('detail').scrollIntoView({behavior: 'smooth', block: 'start'}); });
+  </button>`).join('') + privCard();
+  $('cards').querySelectorAll('.card[data-k]').forEach(b => b.onclick = () => { sel = b.dataset.k; renderCards(); renderDetail(); $('detail').scrollIntoView({behavior: 'smooth', block: 'start'}); });
 }
 
 function renderDetail(){
