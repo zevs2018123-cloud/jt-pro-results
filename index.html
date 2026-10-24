@@ -185,9 +185,9 @@ function accSeries(key){
   const a = DATA.accounts[key];
   return a.bal.map((p, i) => ({d: p[0], i: 1 + a.s[i] / 100}));
 }
-function maxDD(s){ let pk = -Infinity, m = 0; for (const p of s) { pk = Math.max(pk, p.i); m = Math.min(m, p.i / pk - 1); } return m * 100; }
+function maxDD(s){ let pk = 1, m = 0; for (const p of s) { pk = Math.max(pk, p.i); m = Math.min(m, p.i / pk - 1); } return m * 100; }
 function monthsOf(s){
-  const out = []; let prev = s[0].i;
+  const out = []; let prev = 1;
   for (const p of s) { const m = p.d.slice(0, 7); let r = out[out.length - 1];
     if (!r || r.m !== m) { r = {m, a: prev, b: p.i}; out.push(r); } r.b = p.i; prev = p.i; }
   return out;
@@ -242,7 +242,7 @@ function spark(s){
 function accList(){
   const keys = Object.keys(DATA.accounts);
   const list = keys.map(k => { const a = DATA.accounts[k], s = accSeries(k);
-    return {k, name: a.name, verified: true, active: a.balNow > 0, gain: (s.at(-1).i / s[0].i - 1) * 100, dd: maxDD(s), from: s[0].d, to: s.at(-1).d, s, url: a.url}; });
+    return {k, name: a.name, verified: true, active: a.balNow > 0, gain: (s.at(-1).i - 1) * 100, dd: maxDD(s), from: s[0].d, to: s.at(-1).d, s, url: a.url}; });
   return list.sort((a, b) => (b.active - a.active) || (b.s.length - a.s.length));
 }
 
@@ -279,8 +279,8 @@ function renderDetail(){
   const acc = DATA.accounts[a.k];
   $('dFacts').innerHTML = [['Total gain', pct(a.gain)], ['Max drawdown', '−' + Math.abs(a.dd).toFixed(1) + '%'], ['Avg. month', acc.monthly], ['Best month', pct(best)]]
     .map(([t, v]) => `<div><dt>${t}</dt><dd>${v}</dd></div>`).join('');
-  if (view === 'growth') chart($('dChart'), a.s.map(p => ({d: p.d, v: (p.i / a.s[0].i - 1) * 100})), {fmt: v => pct(v), label: 'Account growth', zero: true});
-  else { let pk = -Infinity; chart($('dChart'), a.s.map(p => { pk = Math.max(pk, p.i); return {d: p.d, v: (p.i / pk - 1) * 100}; }), {fmt: v => v.toFixed(1) + '%', label: 'Drawdown from peak', neg: true}); }
+  if (view === 'growth') chart($('dChart'), a.s.map(p => ({d: p.d, v: (p.i - 1) * 100})), {fmt: v => pct(v), label: 'Account growth', zero: true});
+  else { let pk = 1; chart($('dChart'), a.s.map(p => { pk = Math.max(pk, p.i); return {d: p.d, v: (p.i / pk - 1) * 100}; }), {fmt: v => v.toFixed(1) + '%', label: 'Drawdown from peak', neg: true}); }
   $('dMonths').innerHTML = ms.slice().reverse().map(m => { const g = (m.b / m.a - 1) * 100; return `<tr><td>${fmtMon(m.m + '-01')}</td><td class="${g >= 0 ? 'up' : 'down'}">${pct(g)}</td></tr>`; }).join('');
 }
 document.querySelectorAll('.subtabs .tab').forEach(b => b.onclick = () => { view = b.dataset.v; document.querySelectorAll('.subtabs .tab').forEach(t => t.setAttribute('aria-pressed', t === b)); renderDetail(); });
