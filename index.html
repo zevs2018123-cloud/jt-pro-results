@@ -97,7 +97,7 @@ a.btn{text-decoration:none;display:inline-block}
   <section class="sec" id="combined">
     <div class="kicker" data-i18n="k2">02 · All accounts together</div>
     <h2 data-i18n="h2b">The whole picture</h2>
-    <p data-i18n="p2">Every account added into one. Money withdrawn is counted as profit taken, not as a loss.</p>
+    <p data-i18n="p2">Every Myfxbook account added into one. Money withdrawn is counted as profit taken, not as a loss.</p>
     <div class="panel hero">
       <div style="display:grid;gap:6px">
         <div class="lbl" data-i18n="lblTot">TOTAL PROFIT · WITHDRAWALS INCLUDED</div>
@@ -168,7 +168,7 @@ a.btn{text-decoration:none;display:inline-block}
 
   <div class="foot">
     <div class="stamp" id="stamp"></div>
-    <div data-i18n="disc">Growth figures exclude deposits and withdrawals, the same way Myfxbook counts them. The private broker account is not connected to Myfxbook; its balances are reported by the trader. Past results do not guarantee future returns. Trading with leverage carries a high level of risk and you can lose some or all of your deposit. Nothing on this page is financial advice.</div>
+    <div data-i18n="disc">Growth figures exclude deposits and withdrawals, the same way Myfxbook counts them. Totals and the calculator count only accounts verified by Myfxbook. The private broker account is shown separately; its balances are reported by the trader. Past results do not guarantee future returns. Trading with leverage carries a high level of risk and you can lose some or all of your deposit. Nothing on this page is financial advice.</div>
   </div>
 </div>
 
@@ -187,7 +187,7 @@ const RU = {
   dLink: 'Проверить на Myfxbook ↗', vGrowth: 'Рост', vDD: 'Просадка',
   th2: '<th>Месяц</th><th>Рост</th>',
   k2: '02 · Все счета вместе', h2b: 'Общая картина',
-  p2: 'Все счета, сложенные в один. Выведенные деньги считаются взятой прибылью, а не потерей.',
+  p2: 'Все счета Myfxbook, сложенные в один. Выведенные деньги считаются взятой прибылью, а не потерей.',
   lblTot: 'ОБЩАЯ ПРИБЫЛЬ · С УЧЁТОМ ВЫВОДОВ',
   legend: '<span><i style="background:var(--neon)"></i>Капитал с учётом выводов</span><span><i style="background:var(--cyan);opacity:.55"></i>Сейчас на счетах</span>',
   k3: '03 · Твои цифры', h2c: 'Сколько было бы с твоим депозитом?',
@@ -200,7 +200,7 @@ const RU = {
   h2e: 'Цифры ты увидел. <em style="font-style:normal;color:var(--neon)">Теперь посмотри на систему.</em>',
   p5: 'Эта страница нужна, чтобы ты убедился, что система работает, прежде чем ей доверять. Следующий шаг это разговор с академией.',
   join: 'Вступить в JT PRO Academy',
-  disc: 'Рост считается без учёта пополнений и выводов, так же, как на Myfxbook. Счёт у частного брокера не подключён к Myfxbook, его балансы сообщает трейдер. Прошлые результаты не гарантируют будущей доходности. Торговля с плечом связана с высоким риском, можно потерять часть или весь депозит. Информация на странице не является финансовой рекомендацией.'
+  disc: 'Рост считается без учёта пополнений и выводов, так же, как на Myfxbook. В общий итог и калькулятор входят только счета, проверенные Myfxbook. Счёт у частного брокера показан отдельно, его балансы сообщает трейдер. Прошлые результаты не гарантируют будущей доходности. Торговля с плечом связана с высоким риском, можно потерять часть или весь депозит. Информация на странице не является финансовой рекомендацией.'
 };
 const EN = {};
 document.querySelectorAll('[data-i18n]').forEach(el => EN[el.dataset.i18n] = el.innerHTML);
@@ -293,14 +293,14 @@ function accList(){
 }
 
 function privCard(){
-  if (ENTRIES.length < 2) return '';
-  const e = ENTRIES.slice().sort((a, b) => a.date < b.date ? -1 : 1), first = e[0], last = e.at(-1);
-  const dep = e.reduce((t, x) => t + (x.flow > 0 ? x.flow : 0), 0), wd = e.reduce((t, x) => t + (x.flow < 0 ? -x.flow : 0), 0);
+  if (!ENTRIES.length) return '';
+  const e = ENTRIES.slice().sort((a, b) => a.date < b.date ? -1 : 1), last = e.at(-1);
+  const rows = e.slice().reverse().map(x => `<div class="meta" style="margin:0"><span>${fmtDate(x.date)}</span><span>${money(x.balance)}${x.flow ? ` · ${x.flow > 0 ? T('deposit', 'пополнение') : T('withdrawal', 'вывод')} ${money(Math.abs(x.flow))}` : ''}</span></div>`).join('');
   return `<div class="card" style="cursor:default">
-    <div class="top"><span class="nm">${T('Private broker', 'Частный брокер')}</span><span class="pill pv">${T('Private', 'Частный')}</span></div>
+    <div class="top"><span class="nm">${T('Private broker account', 'Счёт у частного брокера')}</span><span class="pill pv">${T('Reported by trader', 'Данные трейдера')}</span></div>
     <div class="g">${money(last.balance)}</div>
-    <div class="note" style="font-size:13px">${T(`Started with ${money(first.balance)} in ${fmtMon(first.date)}${wd ? `, ${money(wd)} withdrawn since` : ''}. Same signals, a broker that can't connect to Myfxbook, so balances are reported by the trader.`, `Старт с ${money(first.balance)} в ${fmtMon(first.date)}${wd ? `, с тех пор выведено ${money(wd)}` : ''}. Те же сигналы, брокер не подключается к Myfxbook, поэтому балансы сообщает трейдер.`)}</div>
-    <div class="meta"><span>${fmtMon(first.date)} – ${T('now', 'сейчас')}</span><span>${T('Reported', 'Со слов трейдера')}</span></div>
+    <div class="note" style="font-size:13px">${T('Same signals. This is a closed private broker that does not connect to Myfxbook, so the balances below are reported by the trader. Not counted in the totals or the calculator.', 'Те же сигналы. Это закрытый частный брокер, он не подключается к Myfxbook, поэтому балансы ниже сообщает трейдер. В общий итог и калькулятор не входит.')}</div>
+    <div style="display:grid;gap:4px">${rows}</div>
   </div>`;
 }
 
@@ -386,7 +386,7 @@ $('chips').querySelectorAll('.chip').forEach(b => b.onclick = () => {
 const bust = '?t=' + Date.now();
 Promise.all([fetch('data.json' + bust).then(r => r.json()), fetch('exchange.json' + bust).then(r => r.json()).catch(() => ({entries: []}))])
   .then(([d, ex]) => {
-    DATA = d; ENTRIES = ex.entries || []; R = jtEngine(DATA, ENTRIES);
+    DATA = d; ENTRIES = ex.entries || []; R = jtEngine(DATA, []); // totals + calculator count Myfxbook-verified accounts only; private broker entries show in their own card
     applyLang(); setupCalc(true);
   })
   .catch(() => { $('cards').innerHTML = `<div class="loading">${T('Could not load live data. Refresh the page.', 'Не удалось загрузить данные. Обнови страницу.')}</div>`; });
