@@ -242,7 +242,7 @@ function spark(s){
 function accList(){
   const keys = Object.keys(DATA.accounts);
   const list = keys.map(k => { const a = DATA.accounts[k], s = accSeries(k);
-    return {k, name: a.name, verified: true, active: a.balNow > 0, gain: (s.at(-1).i - 1) * 100, dd: maxDD(s), from: s[0].d, to: s.at(-1).d, s, url: a.url}; });
+    return {k, name: a.name, verified: true, active: a.balNow > 0, gain: (s.at(-1).i - 1) * 100, dd: parseFloat(a.drawdown) || Math.abs(maxDD(s)), from: s[0].d, to: s.at(-1).d, s, url: a.url}; });
   return list.sort((a, b) => (b.active - a.active) || (b.s.length - a.s.length));
 }
 
