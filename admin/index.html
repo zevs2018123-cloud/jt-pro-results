@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>JT PRO Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../style.css">
+<style>
+.row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:10px;align-items:end}
+@media (max-width:640px){.row{grid-template-columns:1fr 1fr}.row .btn{grid-column:1/-1}}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div style="display:grid;gap:6px">
+      <div class="eyebrow"><span class="live"></span>JT PRO · control panel</div>
+      <h1 style="font-size:clamp(28px,6vw,40px)">Exchange <em>records</em></h1>
+    </div>
+    <a class="link" href="../" target="_blank" rel="noopener">Open public site ↗</a>
+  </header>
+
+  <section class="panel" id="login" hidden>
+    <h2>Sign in</h2>
+    <div class="note">Paste your panel key (the GitHub token for this site). It stays on this device only.</div>
+    <form id="loginForm" class="row" style="grid-template-columns:1fr auto">
+      <label for="key">PANEL KEY<input id="key" type="password" autocomplete="current-password" required></label>
+      <button class="btn" type="submit">Sign in</button>
+    </form>
+    <div class="status" id="loginStatus"></div>
+  </section>
+
+  <div id="app" hidden style="display:grid;gap:20px">
+    <section class="panel hero">
+      <div class="top"><div class="lbl">TOTAL EARNED ON THE PUBLIC SITE AFTER YOUR RECORDS</div><button class="btn ghost" id="logout" type="button">Sign out</button></div>
+      <div class="big" id="prev">—</div>
+      <dl class="facts" id="facts"></dl>
+    </section>
+
+    <section class="panel">
+      <h2>Add a record</h2>
+      <div class="note">Enter the exchange balance at the end of the day. If money went in or out that day, add it below. Same date again overwrites that day.</div>
+      <form id="entryForm" class="row">
+        <label for="eDate">DATE<input id="eDate" type="date" required></label>
+        <label for="eBal">BALANCE AFTER, $<input id="eBal" type="number" inputmode="decimal" step="0.01" min="0" required></label>
+        <label for="eType">MONEY MOVED<select id="eType"><option value="0">Nothing</option><option value="1">Deposit</option><option value="-1">Withdrawal</option></select></label>
+        <label for="eAmt">AMOUNT, $<input id="eAmt" type="number" inputmode="decimal" step="0.01" min="0" value="0"></label>
+        <button class="btn" id="eSave" type="submit">Save</button>
+      </form>
+      <div class="status" id="eStatus"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Records</h2>
+      <div class="scroll"><table>
+        <thead><tr><th>Date</th><th>Balance</th><th>Deposit / withdrawal</th><th></th></tr></thead>
+        <tbody id="eRows"></tbody>
+      </table></div>
+      <div class="note">The public site shows changes about a minute after you save.</div>
+    </section>
+  </div>
+</div>
+
+<script src="../engine.js"></script>
+<script>
+const OWNER = 'zevs2018123-cloud', REPO = 'jt-pro-results', FILE = 'exchange.json';
+const API = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE}`;
+const $ = id => document.getElementById(id);
+const money = v => (v < 0 ? '−$' : '$') + Math.round(Math.abs(v)).toLocaleString('en-US');
+const fmtDate = s => new Date(s + 'T00:00:00').toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+let KEY = null, SHA = null, ENTRIES = [], DATA = null;
+try { KEY = localStorage.getItem('jtKey'); } catch (e) {}
+
+const gh = (method, body) => fetch(API + (method === 'GET' ? '?t=' + Date.now() : ''), {method, headers: {Authorization: 'Bearer ' + KEY, Accept: 'application/vnd.github+json'}, body: body && JSON.stringify(body), cache: 'no-store'});
+const b64 = s => btoa(unescape(encodeURIComponent(s)));
+const unb64 = s => decodeURIComponent(escape(atob(s.replace(/\n/g, ''))));
+
+async function load(){
+  const r = await gh('GET');
+  if (r.status === 401 || r.status === 403 || r.status === 404) throw new Error('auth');
+  const j = await r.json(); SHA = j.sha; ENTRIES = (JSON.parse(unb64(j.content)).entries || []);
+}
+
+async function save(next, msg){
+  const content = JSON.stringify({entries: next.slice().sort((a, b) => a.date < b.date ? -1 : 1)}, null, 1);
+  let r = await gh('PUT', {message: msg, content: b64(content), sha: SHA});
+  if (r.status === 409 || r.status === 422) { await load(); throw new Error('Someone saved at the same time. Records reloaded, try again.'); }
+  if (!r.ok) throw new Error('GitHub refused the save (' + r.status + ').');
+  SHA = (await r.json()).content.sha; ENTRIES = next;
+}
+
+function render(){
+  const list = ENTRIES.slice().sort((a, b) => a.date < b.date ? 1 : -1);
+  $('eRows').innerHTML = list.map(e => `<tr><td>${fmtDate(e.date)}</td><td>${money(e.balance)}</td><td class="${e.flow > 0 ? 'up' : e.flow < 0 ? 'down' : ''}">${e.flow ? (e.flow > 0 ? '+' : '') + money(e.flow) : '—'}</td><td><button class="del" type="button" data-del="${e.date}">Delete</button></td></tr>`).join('');
+  if (DATA) {
+    const R = jtEngine(DATA, ENTRIES);
+    $('prev').textContent = money(R.result);
+    $('facts').innerHTML = [['Put in', R.dep], ['Taken out', R.wd], ['On accounts', R.now], ['Exchange now', (R.rows.find(r => r.key === 'exchange') || {}).now || 0]]
+      .map(([t, v]) => `<div><dt>${t}</dt><dd>${money(v)}</dd></div>`).join('');
+  }
+}
+
+async function enter(){
+  $('login').hidden = true; $('app').hidden = false;
+  const t = new Date(); $('eDate').value = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
+  render();
+}
+
+function showLogin(msg){ $('app').hidden = true; $('login').hidden = false; $('loginStatus').textContent = msg || ''; }
+
+$('loginForm').addEventListener('submit', async e => {
+  e.preventDefault(); KEY = $('key').value.trim(); $('loginStatus').textContent = 'Checking…';
+  try { await load(); try { localStorage.setItem('jtKey', KEY); } catch (e) {} $('key').value = ''; enter(); }
+  catch (err) { KEY = null; $('loginStatus').textContent = 'That key does not open this site. Check it and try again.'; }
+});
+$('logout').onclick = () => { try { localStorage.removeItem('jtKey'); } catch (e) {} KEY = null; showLogin('Signed out.'); };
+
+$('entryForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const date = $('eDate').value, balance = parseFloat($('eBal').value), sign = +$('eType').value, amt = parseFloat($('eAmt').value) || 0;
+  if (!date || !(balance >= 0)) { $('eStatus').textContent = 'Enter a date and the balance after that day.'; return; }
+  if (sign && !amt) { $('eStatus').textContent = 'Enter how much went in or out, or set Money moved to Nothing.'; return; }
+  $('eSave').disabled = true; $('eStatus').textContent = 'Saving…';
+  try {
+    const next = ENTRIES.filter(x => x.date !== date).concat({date, balance, flow: sign * amt});
+    await save(next, `Exchange record ${date}`);
+    $('eStatus').textContent = `Saved ${fmtDate(date)}.`; $('eBal').value = ''; $('eAmt').value = 0; $('eType').value = '0'; render();
+  } catch (err) { $('eStatus').textContent = err.message; render(); }
+  $('eSave').disabled = false;
+});
+
+$('eRows').addEventListener('click', async e => {
+  const b = e.target.closest('[data-del]'); if (!b) return;
+  if (b.dataset.armed !== '1') { b.dataset.armed = '1'; b.textContent = 'Tap to confirm'; return; }
+  b.disabled = true; $('eStatus').textContent = 'Deleting…';
+  try { await save(ENTRIES.filter(x => x.date !== b.dataset.del), `Delete exchange record ${b.dataset.del}`); $('eStatus').textContent = 'Deleted.'; }
+  catch (err) { $('eStatus').textContent = err.message; }
+  render();
+});
+
+fetch('../data.json?t=' + Date.now()).then(r => r.json()).then(d => { DATA = d; if (!$('app').hidden) render(); }).catch(() => {});
+if (KEY) load().then(enter).catch(() => showLogin('Sign in again.')); else showLogin();
+</script>
+</body>
+</html>

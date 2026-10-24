@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>JT PRO Results</title>
+<meta name="description" content="Combined results of the JT PRO trading accounts, verified on Myfxbook, with an investment calculator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow"><span class="live"></span>JT PRO · live track record</div>
+    <h1>All accounts. <em>One result.</em></h1>
+    <p class="lede">Six accounts verified on Myfxbook plus an exchange account traded on the same entries, added up into one balance. Money taken out stays in the score.</p>
+  </header>
+
+  <section class="panel hero" aria-label="Total capital">
+    <div style="display:grid;gap:6px">
+      <div class="lbl">TOTAL EARNED · WITHDRAWALS INCLUDED</div>
+      <div class="big" id="totResult"><span class="loading">loading…</span></div>
+      <div class="delta" id="totGrowth"></div>
+    </div>
+    <dl class="facts" id="totFacts"></dl>
+    <div class="chart" id="totChart"></div>
+    <div class="legend"><span><i style="background:var(--neon)"></i>Capital incl. withdrawn</span><span><i style="background:var(--cyan);opacity:.55"></i>On accounts</span><span><i style="background:var(--line2);height:10px;vertical-align:-1px"></i>Estimated period</span></div>
+  </section>
+
+  <section class="panel" aria-label="Accounts">
+    <h2>Accounts</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Account</th><th>Put in</th><th>Taken out</th><th>Balance now</th><th>Result</th><th>Proof</th></tr></thead>
+      <tbody id="rows"></tbody><tfoot id="rowsFoot"></tfoot>
+    </table></div>
+    <div class="note">Verified accounts are tracked live by Myfxbook, tap the link to check them yourself. The exchange is a small broker that can't connect to Myfxbook, so its balance comes from our own records. Days between two records are estimated from JT #4, which trades the same entries.</div>
+  </section>
+
+  <section class="panel" aria-label="Calculator">
+    <h2>What would your money look like?</h2>
+    <div class="tabs" id="tabs" role="group" aria-label="Account"></div>
+    <div class="fields">
+      <label for="amt">STARTING AMOUNT
+        <div class="amount"><span>$</span><input id="amt" type="number" inputmode="decimal" min="1" step="100" value="1000"></div>
+      </label>
+      <label for="start">START DATE
+        <input id="start" type="date">
+      </label>
+    </div>
+    <div class="chips" id="chips">
+      <button class="chip" data-m="1" type="button">1 month ago</button>
+      <button class="chip" data-m="3" type="button">3 months ago</button>
+      <button class="chip" data-m="v" type="button">First verified day</button>
+      <button class="chip" data-m="0" type="button">The very start</button>
+    </div>
+    <div class="result" aria-live="polite">
+      <div class="lbl" id="resLbl">VALUE TODAY</div>
+      <div class="big" id="resVal">$0</div>
+      <div class="delta" id="resDelta"></div>
+      <div class="note" id="resNote"></div>
+    </div>
+    <div class="chart" id="calcChart"></div>
+    <div style="display:grid;gap:8px">
+      <div class="lbl" id="mLbl">MONTH BY MONTH</div>
+      <div class="scroll"><table class="months">
+        <thead><tr><th>Month</th><th>Account gain</th><th>Your profit</th><th>Your balance</th></tr></thead>
+        <tbody id="mRows"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <div class="stamp" id="stamp"></div>
+    <div>Growth figures strip out deposits and withdrawals, the same way Myfxbook counts them. "Total earned" is balance now plus everything withdrawn, minus everything put in. This is a record of past results, not a promise. Trading with leverage is high risk and past performance does not guarantee future returns.</div>
+  </div>
+</div>
+
+<script src="engine.js"></script>
+<script>
+let DATA = null, ENTRIES = [], R = null, cur = 'all';
+const $ = id => document.getElementById(id);
+const money = v => (v < 0 ? '−$' : '$') + Math.round(Math.abs(v)).toLocaleString('en-US');
+const fmtDate = s => new Date(s + 'T00:00:00').toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+const pct = v => (v >= 0 ? '+' : '') + v.toLocaleString('en-US', {maximumFractionDigits: Math.abs(v) >= 100 ? 0 : 1}) + '%';
+
+function series(key){
+  if (key === 'all') return R.days.map(x => ({d: x.d, i: x.idx, est: x.est}));
+  const a = DATA.accounts[key];
+  return a.bal.map((p, i) => ({d: p[0], i: 1 + a.s[i] / 100, est: false}));
+}
+
+function chart(el, pts, opts){
+  const W = 720, H = 250, L = 8, Rt = 72, T = 12, B = 26;
+  const vals = pts.flatMap(p => p.v2 != null ? [p.v, p.v2] : [p.v]).concat(opts.base != null ? [opts.base] : []);
+  let lo = Math.min(0, ...vals), hi = Math.max(...vals); if (hi === lo) hi = lo + 1;
+  if (opts.base != null) lo = Math.min(...vals) * 0.92;
+  const n = pts.length, x = i => L + (n < 2 ? 0 : i * (W - L - Rt) / (n - 1)), y = v => T + (hi - v) / (hi - lo) * (H - T - B);
+  const path = k => pts.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p[k]).toFixed(1)}`).join('');
+  let shade = '', i0 = -1;
+  pts.forEach((p, i) => { if (p.est && i0 < 0) i0 = i; if ((!p.est || i === n - 1) && i0 >= 0) { const i1 = p.est ? i : i - 1; shade += `<rect x="${x(i0)}" y="${T}" width="${Math.max(1, x(i1) - x(i0))}" height="${H - T - B}" fill="var(--est)"/>`; i0 = -1; } });
+  const ticks = [0, .5, 1].map(f => lo + (hi - lo) * (0.06 + f * 0.88)).map(v =>
+    `<line x1="${L}" x2="${W - Rt}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${W - Rt + 8}" y="${y(v) + 4}" fill="var(--muted)" font-size="11" font-family="var(--mono)">${money(v)}</text>`).join('');
+  const area = path('v') + `L${x(n - 1)},${H - B}L${x(0)},${H - B}Z`, last = pts[n - 1], id = el.id;
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${opts.label}">
+    <defs><linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e8bff" stop-opacity=".35"/><stop offset="1" stop-color="#2e8bff" stop-opacity="0"/></linearGradient>
+    <filter id="f${id}" x="-5%" y="-20%" width="110%" height="140%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    ${shade}${ticks}
+    ${opts.base != null ? `<line x1="${L}" x2="${W - Rt}" y1="${y(opts.base)}" y2="${y(opts.base)}" stroke="var(--dim)" stroke-dasharray="4 4" stroke-width="1"/>` : ''}
+    <path d="${area}" fill="url(#g${id})"/>
+    ${pts[0].v2 != null ? `<path d="${path('v2')}" fill="none" stroke="var(--cyan)" stroke-opacity=".5" stroke-width="1.5"/>` : ''}
+    <path d="${path('v')}" fill="none" stroke="var(--neon)" stroke-width="2.2" stroke-linejoin="round" filter="url(#f${id})"/>
+    <circle cx="${x(n - 1)}" cy="${y(last.v)}" r="4.5" fill="var(--cyan)" filter="url(#f${id})"/>
+    <text x="${L}" y="${H - 6}" fill="var(--muted)" font-size="11" font-family="var(--mono)">${fmtDate(pts[0].d)}</text>
+    <text x="${W - Rt}" y="${H - 6}" fill="var(--muted)" font-size="11" font-family="var(--mono)" text-anchor="end">${fmtDate(last.d)}</text>
+    <line class="hx" y1="${T}" y2="${H - B}" stroke="var(--cyan)" stroke-opacity=".6" stroke-width="1" visibility="hidden"/>
+  </svg><div class="tip" hidden></div>`;
+  const svg = el.querySelector('svg'), tip = el.querySelector('.tip'), hx = el.querySelector('.hx');
+  const move = e => {
+    const r = svg.getBoundingClientRect(), sx = (e.clientX - r.left) * W / r.width;
+    const i = Math.max(0, Math.min(n - 1, Math.round((sx - L) / ((W - L - Rt) / Math.max(1, n - 1)))));
+    hx.setAttribute('x1', x(i)); hx.setAttribute('x2', x(i)); hx.setAttribute('visibility', 'visible');
+    tip.hidden = false; tip.textContent = `${fmtDate(pts[i].d)} · ${money(pts[i].v)}${pts[i].est ? ' · est.' : ''}`;
+    tip.style.left = Math.min(r.width - 70, Math.max(70, x(i) * r.width / W)) + 'px'; tip.style.top = (y(pts[i].v) * r.height / H) + 'px';
+  };
+  svg.addEventListener('pointermove', move); svg.addEventListener('pointerdown', move);
+  svg.addEventListener('pointerleave', () => { tip.hidden = true; hx.setAttribute('visibility', 'hidden'); });
+}
+
+function renderTotal(){
+  const days = R.days, last = days[days.length - 1];
+  const firstReal = days.find(x => x.d >= R.firstReal) || days[0];
+  $('totResult').textContent = money(R.result);
+  const g = (last.idx / days[0].idx - 1) * 100, gv = (last.idx / firstReal.idx - 1) * 100;
+  $('totGrowth').innerHTML = `<span class="up">${pct(gv)}</span> since ${fmtDate(firstReal.d)}, first Myfxbook day <span style="color:var(--muted)">· ${pct(g)} since ${fmtDate(days[0].d)} incl. exchange</span>`;
+  $('totFacts').innerHTML = [['Put in', R.dep], ['Taken out', R.wd], ['On accounts', R.now], ['Capital + withdrawn', R.now + R.wd]]
+    .map(([t, v]) => `<div><dt>${t}</dt><dd>${money(v)}</dd></div>`).join('');
+  chart($('totChart'), days.map(x => ({d: x.d, v: x.tot + x.wd, v2: x.tot, est: x.est})), {label: 'Total capital over time'});
+  $('rows').innerHTML = R.rows.map(r => `<tr><td>${r.name}<span class="badge ${r.verified ? 'v' : 'o'}">${r.verified ? 'Verified' : 'Own records'}</span></td>
+    <td>${money(r.dep)}</td><td>${money(r.wd)}</td><td>${money(r.now)}</td><td class="${r.now + r.wd - r.dep >= 0 ? 'up' : 'down'}">${money(r.now + r.wd - r.dep)}</td>
+    <td>${r.url ? `<a class="link" href="${r.url}" target="_blank" rel="noopener">Myfxbook ↗</a>` : '<span style="color:var(--dim)">—</span>'}</td></tr>`).join('');
+  $('rowsFoot').innerHTML = `<tr><td>All accounts</td><td>${money(R.dep)}</td><td>${money(R.wd)}</td><td>${money(R.now)}</td><td class="up">${money(R.result)}</td><td></td></tr>`;
+  const lastMfx = Object.values(DATA.accounts).map(a => a.bal[a.bal.length - 1][0]).sort().pop();
+  $('stamp').textContent = `Myfxbook data to ${fmtDate(lastMfx)} · last exchange record ${ENTRIES.length ? fmtDate(ENTRIES.map(e => e.date).sort().pop()) : '—'} · updated ${fmtDate(DATA.updated)}`;
+}
+
+function renderTabs(){
+  const tabs = [['all', 'All accounts', pct((R.days.at(-1).idx / R.days[0].idx - 1) * 100)], ['jt4', 'JT #4', DATA.accounts.jt4.gain], ['jtpro2', 'JT PRO #2', DATA.accounts.jtpro2.gain]];
+  $('tabs').innerHTML = tabs.map(([k, n, g]) => `<button class="tab" type="button" data-k="${k}" aria-pressed="${k === cur}">${n}<span class="g">${g}</span></button>`).join('');
+  $('tabs').querySelectorAll('.tab').forEach(b => b.onclick = () => { cur = b.dataset.k; setupCalc(true); });
+}
+
+function setupCalc(reset){
+  renderTabs();
+  const s = series(cur), inp = $('start');
+  inp.min = s[0].d; inp.max = s[s.length - 1].d;
+  const verified = cur === 'all' ? R.firstReal : s[0].d;
+  if (reset || !inp.value || inp.value < inp.min || inp.value > inp.max) inp.value = verified < inp.min ? inp.min : verified;
+  calc();
+}
+
+function calc(){
+  const s = series(cur), amt = Math.max(0, parseFloat($('amt').value) || 0), start = $('start').value;
+  let i = 0; while (i + 1 < s.length && s[i + 1].d <= start) i++;
+  const pts = s.slice(i).map(p => ({d: p.d, v: amt * p.i / s[i].i, est: p.est}));
+  const end = pts[pts.length - 1].v, diff = end - amt, p = amt ? diff / amt * 100 : 0;
+  $('resLbl').textContent = `VALUE ON ${fmtDate(pts[pts.length - 1].d).toUpperCase()} IF YOU STARTED ${fmtDate(pts[0].d).toUpperCase()}`;
+  $('resVal').textContent = money(end);
+  const low = Math.min(...pts.map(q => q.v));
+  $('resDelta').innerHTML = `<span class="${diff >= 0 ? 'up' : 'down'}">${diff >= 0 ? '+' : '−'}${money(Math.abs(diff))} (${pct(p)})</span>` + (low < amt ? ` <span style="color:var(--muted)">· lowest point on the way ${money(low)}</span>` : '');
+  $('resNote').textContent = cur === 'all' && pts[0].d < R.firstReal ? 'Part of this period (shaded) is before Myfxbook tracking and comes from the exchange records, estimated between records.' : '';
+  chart($('calcChart'), pts, {base: amt, label: 'Growth of your amount over time'});
+  renderMonths(pts, amt);
+}
+
+function renderMonths(pts, amt){
+  const months = []; let prevEnd = amt;
+  for (const p of pts) {
+    const m = p.d.slice(0, 7); let row = months[months.length - 1];
+    if (!row || row.m !== m) { row = {m, start: prevEnd, end: p.v, est: false}; months.push(row); }
+    row.end = p.v; prevEnd = p.v; if (p.est) row.est = true;
+  }
+  const maxAbs = Math.max(...months.map(r => Math.abs(r.end / r.start - 1)), 0.01);
+  const name = m => new Date(m + '-01T00:00:00').toLocaleDateString('en-US', {month: 'long', year: 'numeric'});
+  const wins = months.filter(r => r.end >= r.start).length;
+  $('mLbl').textContent = `MONTH BY MONTH WITH ${money(amt)} · ${wins} OF ${months.length} MONTHS IN PROFIT`;
+  $('mRows').innerHTML = months.slice().reverse().map(r => {
+    const g = r.end / r.start - 1, w = Math.max(3, Math.round(Math.abs(g) / maxAbs * 60));
+    return `<tr class="${r.est ? 'est' : ''}"><td>${name(r.m)}${r.est ? '<span class="badge o">est.</span>' : ''}</td>
+      <td><span class="bar ${g < 0 ? 'neg' : ''}" style="width:${w}px"></span>${pct(g * 100)}</td>
+      <td class="${g >= 0 ? 'up' : 'down'}">${g >= 0 ? '+' : '−'}${money(Math.abs(r.end - r.start))}</td>
+      <td>${money(r.end)}</td></tr>`;
+  }).join('');
+}
+
+$('amt').addEventListener('input', () => R && calc());
+$('start').addEventListener('change', () => R && calc());
+$('chips').querySelectorAll('.chip').forEach(b => b.onclick = () => {
+  if (!R) return;
+  const s = series(cur), m = b.dataset.m;
+  if (m === '0') $('start').value = s[0].d;
+  else if (m === 'v') $('start').value = cur === 'all' ? R.firstReal : s[0].d;
+  else { const d = new Date(s[s.length - 1].d + 'T00:00:00'); d.setMonth(d.getMonth() - +m);
+    const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; $('start').value = iso < s[0].d ? s[0].d : iso; }
+  calc();
+});
+
+const bust = '?t=' + Date.now();
+Promise.all([fetch('data.json' + bust).then(r => r.json()), fetch('exchange.json' + bust).then(r => r.json()).catch(() => ({entries: []}))])
+  .then(([d, ex]) => { DATA = d; ENTRIES = ex.entries || []; R = jtEngine(DATA, ENTRIES); renderTotal(); setupCalc(true); })
+  .catch(() => { $('totResult').innerHTML = '<span class="loading">Could not load data. Refresh the page.</span>'; });
+</script>
+</body>
+</html>
