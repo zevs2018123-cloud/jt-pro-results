@@ -56,7 +56,8 @@ function jtEngine(DATA, entries){
   const days = [];
   const cur = new Map(books.map(b => [b.key, 0]));
   const stats = new Map(books.map(b => [b.key, { dep: 0, wd: 0 }]));
-  let idx = 1, prevTot = 0, D = 0, W = 0;
+  let idx = 1, prevTot = 0, D = 0, W = 0, exI = 1, exPrev = 0;
+  const exSeries = [];
   for (let n = lo; n <= hi; n++) {
     let F = 0, estDay = false;
     for (const b of books) {
@@ -65,12 +66,15 @@ function jtEngine(DATA, entries){
       if (f) { F += f; const st = stats.get(b.key); if (f > 0) { st.dep += f; D += f; } else { st.wd -= f; W -= f; } }
       if (b.est.has(n)) estDay = true;
     }
+    const exNow = cur.get('exchange'), exF = ex.flows.get(n) || 0;
+    if (exPrev > 0) exI *= (exNow - exF) / exPrev;
+    exPrev = exNow; if (exNow > 0) exSeries.push({ d: toS(n), i: exI });
     const tot = [...cur.values()].reduce((s, v) => s + v, 0);
     if (prevTot > 0) idx *= (tot - F) / prevTot;
     prevTot = tot;
     days.push({ d: toS(n), tot, idx, dep: D, wd: W, est: estDay || n < refStart });
   }
   const rows = books.map(b => ({ key: b.key, name: b.name, url: b.url, verified: b.verified, now: cur.get(b.key), ...stats.get(b.key) }));
-  return { days, rows, now: prevTot, dep: D, wd: W, result: prevTot + W - D, firstReal: toS(refStart) };
+  return { days, rows, exSeries, now: prevTot, dep: D, wd: W, result: prevTot + W - D, firstReal: toS(refStart) };
 }
 if (typeof module !== 'undefined') module.exports = jtEngine;

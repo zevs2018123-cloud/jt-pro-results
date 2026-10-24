@@ -1,116 +1,221 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" translate="no" class="notranslate">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>JT PRO Results</title>
-<meta name="description" content="Combined results of the JT PRO trading accounts, verified on Myfxbook, with an investment calculator.">
+<meta name="google" content="notranslate">
+<title>JT PRO Academy · Live Track Record</title>
+<meta name="description" content="Real trading accounts, verified on Myfxbook and updated every day. See how each account grew, where it dipped, and what your deposit could look like.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="style.css">
+<style>
+.hero{padding-block:28px 8px;display:grid;gap:18px}
+.hero h1{font-size:clamp(36px,8vw,64px)}
+.hero .lede{font-size:17px}
+.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:620px){.proof{grid-template-columns:1fr}}
+.proof div{border:1px solid var(--line);background:rgba(10,17,32,.7);border-radius:12px;padding:14px;display:grid;gap:4px}
+.proof b{font-family:var(--display);font-size:17px;letter-spacing:.01em}
+.proof span{font-size:13px;color:var(--muted)}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+a.btn{text-decoration:none;display:inline-block}
+.sec{display:grid;gap:14px}
+.sec>p{margin:0;color:var(--muted);max-width:64ch}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--cyan);text-transform:uppercase}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.card{font:inherit;color:inherit;text-align:left;cursor:pointer;background:linear-gradient(180deg,rgba(12,20,38,.95),rgba(10,17,32,.95));border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:8px;min-width:0}
+.card:hover{border-color:var(--line2)}
+.card[aria-pressed="true"]{border-color:var(--neon);box-shadow:0 0 22px -8px var(--glow)}
+.card .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.card .nm{font-family:var(--display);font-weight:600;font-size:17px}
+.card .g{font-family:var(--mono);font-size:22px;color:var(--up)}
+.card .meta{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.card svg{width:100%;height:44px;display:block}
+.pill{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px}
+.pill.on{color:var(--up);background:rgba(30,230,160,.12)}
+.pill.off{color:var(--muted);border:1px solid var(--line2)}
+.pill.pv{color:var(--cyan);border:1px solid rgba(63,210,255,.35)}
+.dhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.subtabs{display:flex;gap:6px}
+.callout{border:1px solid rgba(63,210,255,.35);background:rgba(63,210,255,.06);border-radius:12px;padding:14px 16px;display:grid;gap:6px}
+.callout b{font-family:var(--display);font-size:16px;color:var(--cyan)}
+.callout p{margin:0;font-size:14px;color:var(--fg)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:620px){.steps{grid-template-columns:1fr}}
+.steps div{border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:6px;background:rgba(10,17,32,.7)}
+.steps i{font-style:normal;font-family:var(--mono);font-size:12px;color:var(--neon)}
+.steps b{font-family:var(--display);font-size:18px}
+.steps span{font-size:14px;color:var(--muted)}
+.final{text-align:left;display:grid;gap:14px}
+.final h2{font-size:clamp(24px,5vw,34px)}
+</style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <div class="eyebrow"><span class="live"></span>JT PRO · live track record</div>
-    <h1>All accounts. <em>One result.</em></h1>
-    <p class="lede">Six accounts verified on Myfxbook plus an exchange account traded on the same entries, added up into one balance. Money taken out stays in the score.</p>
-  </header>
 
-  <section class="panel hero" aria-label="Total capital">
-    <div style="display:grid;gap:6px">
-      <div class="lbl">TOTAL EARNED · WITHDRAWALS INCLUDED</div>
-      <div class="big" id="totResult"><span class="loading">loading…</span></div>
-      <div class="delta" id="totGrowth"></div>
+  <section class="hero">
+    <div class="eyebrow"><span class="live"></span>JT PRO Academy · live track record</div>
+    <h1>Real accounts. Real money. <em>Open to everyone.</em></h1>
+    <p class="lede">Most trading academies show screenshots. We show every account live. Open any of them, see how it grew, where it dipped and how it came back. Then decide for yourself.</p>
+    <div class="proof">
+      <div><b>Verified by Myfxbook</b><span>An independent service reads the trades straight from the broker. Nobody can edit them.</span></div>
+      <div><b>Updated every day</b><span>The numbers on this page refresh daily from the live accounts.</span></div>
+      <div><b>Nothing hidden</b><span>Every account is here, including the weak months and the drawdowns.</span></div>
     </div>
-    <dl class="facts" id="totFacts"></dl>
-    <div class="chart" id="totChart"></div>
-    <div class="legend"><span><i style="background:var(--neon)"></i>Capital incl. withdrawn</span><span><i style="background:var(--cyan);opacity:.55"></i>On accounts</span><span><i style="background:var(--line2);height:10px;vertical-align:-1px"></i>Estimated period</span></div>
+    <div class="cta"><a class="btn" href="#accounts">See the accounts</a><a class="btn ghost" href="#calculator">Calculate your result</a></div>
   </section>
 
-  <section class="panel" aria-label="Accounts">
-    <h2>Accounts</h2>
-    <div class="scroll"><table>
-      <thead><tr><th>Account</th><th>Put in</th><th>Taken out</th><th>Balance now</th><th>Result</th><th>Proof</th></tr></thead>
-      <tbody id="rows"></tbody><tfoot id="rowsFoot"></tfoot>
-    </table></div>
-    <div class="note">Verified accounts are tracked live by Myfxbook, tap the link to check them yourself. The exchange is a small broker that can't connect to Myfxbook, so its balance comes from our own records. Days between two records are estimated from JT #4, which trades the same entries.</div>
-  </section>
+  <section class="sec" id="accounts">
+    <div class="kicker">01 · Every account, open</div>
+    <h2>Pick an account and look inside</h2>
+    <p>Each card is a separate live account trading the same signals. Tap one to see its full history.</p>
+    <div class="cards" id="cards"><div class="loading">Loading live data…</div></div>
 
-  <section class="panel" aria-label="Calculator">
-    <h2>What would your money look like?</h2>
-    <div class="tabs" id="tabs" role="group" aria-label="Account"></div>
-    <div class="fields">
-      <label for="amt">STARTING AMOUNT
-        <div class="amount"><span>$</span><input id="amt" type="number" inputmode="decimal" min="1" step="100" value="1000"></div>
-      </label>
-      <label for="start">START DATE
-        <input id="start" type="date">
-      </label>
-    </div>
-    <div class="chips" id="chips">
-      <button class="chip" data-m="1" type="button">1 month ago</button>
-      <button class="chip" data-m="3" type="button">3 months ago</button>
-      <button class="chip" data-m="v" type="button">First verified day</button>
-      <button class="chip" data-m="0" type="button">The very start</button>
-    </div>
-    <div class="result" aria-live="polite">
-      <div class="lbl" id="resLbl">VALUE TODAY</div>
-      <div class="big" id="resVal">$0</div>
-      <div class="delta" id="resDelta"></div>
-      <div class="note" id="resNote"></div>
-    </div>
-    <div class="chart" id="calcChart"></div>
-    <div style="display:grid;gap:8px">
-      <div class="lbl" id="mLbl">MONTH BY MONTH</div>
+    <div class="panel" id="detail" hidden>
+      <div class="dhead">
+        <div style="display:grid;gap:4px">
+          <div class="lbl" id="dSub"></div>
+          <h2 id="dName"></h2>
+        </div>
+        <a class="link" id="dLink" target="_blank" rel="noopener">Check on Myfxbook ↗</a>
+      </div>
+      <dl class="facts" id="dFacts"></dl>
+      <div class="subtabs"><button class="tab" type="button" data-v="growth" aria-pressed="true">Growth</button><button class="tab" type="button" data-v="dd" aria-pressed="false">Drawdown</button></div>
+      <div class="chart" id="dChart"></div>
       <div class="scroll"><table class="months">
-        <thead><tr><th>Month</th><th>Account gain</th><th>Your profit</th><th>Your balance</th></tr></thead>
-        <tbody id="mRows"></tbody>
+        <thead><tr><th>Month</th><th>Gain</th></tr></thead>
+        <tbody id="dMonths"></tbody>
       </table></div>
     </div>
   </section>
 
+  <section class="sec" id="combined">
+    <div class="kicker">02 · All accounts together</div>
+    <h2>The whole picture</h2>
+    <p>Every account added into one. Money withdrawn is counted as profit taken, not as a loss.</p>
+    <div class="panel hero">
+      <div style="display:grid;gap:6px">
+        <div class="lbl">TOTAL PROFIT · WITHDRAWALS INCLUDED</div>
+        <div class="big" id="totResult">—</div>
+        <div class="delta" id="totGrowth"></div>
+      </div>
+      <dl class="facts" id="totFacts"></dl>
+      <div class="chart" id="totChart"></div>
+      <div class="legend"><span><i style="background:var(--neon)"></i>Capital incl. withdrawn</span><span><i style="background:var(--cyan);opacity:.55"></i>On accounts now</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="calculator">
+    <div class="kicker">03 · Your numbers</div>
+    <h2>What would your deposit look like?</h2>
+    <p>Enter an amount and a start date. The result follows the real day-by-day growth of the accounts.</p>
+    <div class="panel">
+      <div class="tabs" id="tabs" role="group" aria-label="Account"></div>
+      <div class="fields">
+        <label for="amt">DEPOSIT
+          <div class="amount"><span>$</span><input id="amt" type="number" inputmode="decimal" min="1" step="100" value="5000"></div>
+        </label>
+        <label for="start">START DATE
+          <input id="start" type="date">
+        </label>
+      </div>
+      <div class="chips" id="chips">
+        <button class="chip" data-m="1" type="button">1 month ago</button>
+        <button class="chip" data-m="3" type="button">3 months ago</button>
+        <button class="chip" data-m="0" type="button">From the start</button>
+      </div>
+      <div class="callout" id="small" hidden>
+        <b>Under $1,000? Your plan looks different</b>
+        <p>These results come from Jason's steady strategy, built for larger deposits. On a small account it grows too slowly to matter, so small deposits trade the same signals with larger position sizes to grow faster.</p>
+        <p>You risk less money in total, but each trade carries more risk for the account. Your curator in the Academy sets the lot size that fits your deposit and your goals.</p>
+      </div>
+      <div class="result" aria-live="polite">
+        <div class="lbl" id="resLbl">VALUE TODAY</div>
+        <div class="big" id="resVal">$0</div>
+        <div class="delta" id="resDelta"></div>
+      </div>
+      <div class="chart" id="calcChart"></div>
+      <div style="display:grid;gap:8px">
+        <div class="lbl" id="mLbl">MONTH BY MONTH</div>
+        <div class="scroll"><table class="months">
+          <thead><tr><th>Month</th><th>Gain</th><th>Your profit</th><th>Your balance</th></tr></thead>
+          <tbody id="mRows"></tbody>
+        </table></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="how">
+    <div class="kicker">04 · How it works</div>
+    <h2>Same signals, a plan built for you</h2>
+    <div class="steps">
+      <div><i>STEP 1</i><b>Join the Academy</b><span>Get the signals Jason trades on the accounts you just looked at.</span></div>
+      <div><i>STEP 2</i><b>Meet your curator</b><span>They look at your deposit and goals and set the strategy and lot size that fit.</span></div>
+      <div><i>STEP 3</i><b>Trade and track</b><span>Follow the signals on your own account, with your curator a message away.</span></div>
+    </div>
+  </section>
+
+  <section class="panel hero final">
+    <h2>You've seen the numbers. <em style="font-style:normal;color:var(--neon)">Now see the system.</em></h2>
+    <p class="lede" style="margin:0">This page is here so you can check that the system works before you trust it with anything. The next step is a conversation with the Academy.</p>
+    <div class="cta"><a class="btn" id="joinBtn" href="#" target="_blank" rel="noopener">Join JT PRO Academy</a></div>
+  </section>
+
   <div class="foot">
     <div class="stamp" id="stamp"></div>
-    <div>Growth figures strip out deposits and withdrawals, the same way Myfxbook counts them. "Total earned" is balance now plus everything withdrawn, minus everything put in. This is a record of past results, not a promise. Trading with leverage is high risk and past performance does not guarantee future returns.</div>
+    <div>Growth figures exclude deposits and withdrawals, the same way Myfxbook counts them. The private broker account is not connected to Myfxbook; its balances are reported by the trader. Past results do not guarantee future returns. Trading with leverage carries a high level of risk and you can lose some or all of your deposit. Nothing on this page is financial advice.</div>
   </div>
 </div>
 
 <script src="engine.js"></script>
 <script>
-let DATA = null, ENTRIES = [], R = null, cur = 'all';
+const ACADEMY_URL = '#';
+let DATA = null, ENTRIES = [], R = null, cur = 'all', sel = 'jt4', view = 'growth';
 const $ = id => document.getElementById(id);
 const money = v => (v < 0 ? '−$' : '$') + Math.round(Math.abs(v)).toLocaleString('en-US');
 const fmtDate = s => new Date(s + 'T00:00:00').toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+const fmtMon = s => new Date(s + 'T00:00:00').toLocaleDateString('en-US', {month:'short', year:'numeric'});
 const pct = v => (v >= 0 ? '+' : '') + v.toLocaleString('en-US', {maximumFractionDigits: Math.abs(v) >= 100 ? 0 : 1}) + '%';
+$('joinBtn').href = ACADEMY_URL;
 
-function series(key){
-  if (key === 'all') return R.days.map(x => ({d: x.d, i: x.idx, est: x.est}));
+// account series: growth index by date
+function accSeries(key){
+  if (key === 'all') { const s = R.days.filter(x => x.d >= R.firstReal); return s.map(x => ({d: x.d, i: x.idx / s[0].idx})); }
   const a = DATA.accounts[key];
-  return a.bal.map((p, i) => ({d: p[0], i: 1 + a.s[i] / 100, est: false}));
+  return a.bal.map((p, i) => ({d: p[0], i: 1 + a.s[i] / 100}));
+}
+function maxDD(s){ let pk = -Infinity, m = 0; for (const p of s) { pk = Math.max(pk, p.i); m = Math.min(m, p.i / pk - 1); } return m * 100; }
+function monthsOf(s){
+  const out = []; let prev = s[0].i;
+  for (const p of s) { const m = p.d.slice(0, 7); let r = out[out.length - 1];
+    if (!r || r.m !== m) { r = {m, a: prev, b: p.i}; out.push(r); } r.b = p.i; prev = p.i; }
+  return out;
 }
 
 function chart(el, pts, opts){
-  const W = 720, H = 250, L = 8, Rt = 72, T = 12, B = 26;
+  const W = 720, H = opts.h || 250, L = 8, Rt = 72, T = 12, B = 26;
   const vals = pts.flatMap(p => p.v2 != null ? [p.v, p.v2] : [p.v]).concat(opts.base != null ? [opts.base] : []);
-  let lo = Math.min(0, ...vals), hi = Math.max(...vals); if (hi === lo) hi = lo + 1;
-  if (opts.base != null) lo = Math.min(...vals) * 0.92;
+  let lo = opts.zero ? Math.min(0, ...vals) : Math.min(...vals), hi = Math.max(...vals); if (hi === lo) hi = lo + 1;
+  if (!opts.zero && !opts.neg) { const pad = (hi - lo) * .08; lo -= pad; hi += pad; }
+  if (opts.neg) hi = 0;
+  const fmt = opts.fmt || money;
   const n = pts.length, x = i => L + (n < 2 ? 0 : i * (W - L - Rt) / (n - 1)), y = v => T + (hi - v) / (hi - lo) * (H - T - B);
   const path = k => pts.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p[k]).toFixed(1)}`).join('');
-  let shade = '', i0 = -1;
-  pts.forEach((p, i) => { if (p.est && i0 < 0) i0 = i; if ((!p.est || i === n - 1) && i0 >= 0) { const i1 = p.est ? i : i - 1; shade += `<rect x="${x(i0)}" y="${T}" width="${Math.max(1, x(i1) - x(i0))}" height="${H - T - B}" fill="var(--est)"/>`; i0 = -1; } });
+  const col = opts.neg ? '#ff4d6d' : '#2e8bff';
   const ticks = [0, .5, 1].map(f => lo + (hi - lo) * (0.06 + f * 0.88)).map(v =>
-    `<line x1="${L}" x2="${W - Rt}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${W - Rt + 8}" y="${y(v) + 4}" fill="var(--muted)" font-size="11" font-family="var(--mono)">${money(v)}</text>`).join('');
-  const area = path('v') + `L${x(n - 1)},${H - B}L${x(0)},${H - B}Z`, last = pts[n - 1], id = el.id;
+    `<line x1="${L}" x2="${W - Rt}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${W - Rt + 8}" y="${y(v) + 4}" fill="var(--muted)" font-size="11" font-family="var(--mono)">${fmt(v)}</text>`).join('');
+  const base = opts.neg ? y(0) : H - B;
+  const area = path('v') + `L${x(n - 1)},${base}L${x(0)},${base}Z`, last = pts[n - 1], id = el.id;
   el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${opts.label}">
-    <defs><linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e8bff" stop-opacity=".35"/><stop offset="1" stop-color="#2e8bff" stop-opacity="0"/></linearGradient>
+    <defs><linearGradient id="g${id}" x1="0" y1="${opts.neg ? 1 : 0}" x2="0" y2="${opts.neg ? 0 : 1}"><stop offset="0" stop-color="${col}" stop-opacity=".35"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient>
     <filter id="f${id}" x="-5%" y="-20%" width="110%" height="140%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-    ${shade}${ticks}
+    ${ticks}
     ${opts.base != null ? `<line x1="${L}" x2="${W - Rt}" y1="${y(opts.base)}" y2="${y(opts.base)}" stroke="var(--dim)" stroke-dasharray="4 4" stroke-width="1"/>` : ''}
     <path d="${area}" fill="url(#g${id})"/>
     ${pts[0].v2 != null ? `<path d="${path('v2')}" fill="none" stroke="var(--cyan)" stroke-opacity=".5" stroke-width="1.5"/>` : ''}
-    <path d="${path('v')}" fill="none" stroke="var(--neon)" stroke-width="2.2" stroke-linejoin="round" filter="url(#f${id})"/>
-    <circle cx="${x(n - 1)}" cy="${y(last.v)}" r="4.5" fill="var(--cyan)" filter="url(#f${id})"/>
+    <path d="${path('v')}" fill="none" stroke="${col}" stroke-width="2.2" stroke-linejoin="round" filter="url(#f${id})"/>
+    <circle cx="${x(n - 1)}" cy="${y(last.v)}" r="4.5" fill="${opts.neg ? col : 'var(--cyan)'}" filter="url(#f${id})"/>
     <text x="${L}" y="${H - 6}" fill="var(--muted)" font-size="11" font-family="var(--mono)">${fmtDate(pts[0].d)}</text>
     <text x="${W - Rt}" y="${H - 6}" fill="var(--muted)" font-size="11" font-family="var(--mono)" text-anchor="end">${fmtDate(last.d)}</text>
     <line class="hx" y1="${T}" y2="${H - B}" stroke="var(--cyan)" stroke-opacity=".6" stroke-width="1" visibility="hidden"/>
@@ -120,95 +225,125 @@ function chart(el, pts, opts){
     const r = svg.getBoundingClientRect(), sx = (e.clientX - r.left) * W / r.width;
     const i = Math.max(0, Math.min(n - 1, Math.round((sx - L) / ((W - L - Rt) / Math.max(1, n - 1)))));
     hx.setAttribute('x1', x(i)); hx.setAttribute('x2', x(i)); hx.setAttribute('visibility', 'visible');
-    tip.hidden = false; tip.textContent = `${fmtDate(pts[i].d)} · ${money(pts[i].v)}${pts[i].est ? ' · est.' : ''}`;
+    tip.hidden = false; tip.textContent = `${fmtDate(pts[i].d)} · ${fmt(pts[i].v)}`;
     tip.style.left = Math.min(r.width - 70, Math.max(70, x(i) * r.width / W)) + 'px'; tip.style.top = (y(pts[i].v) * r.height / H) + 'px';
   };
   svg.addEventListener('pointermove', move); svg.addEventListener('pointerdown', move);
   svg.addEventListener('pointerleave', () => { tip.hidden = true; hx.setAttribute('visibility', 'hidden'); });
 }
 
+function spark(s){
+  const W = 220, H = 44, n = s.length; if (n < 2) return '';
+  const lo = Math.min(...s.map(p => p.i)), hi = Math.max(...s.map(p => p.i)) || 1;
+  const d = s.map((p, i) => `${i ? 'L' : 'M'}${(i * W / (n - 1)).toFixed(1)},${(H - 3 - (p.i - lo) / ((hi - lo) || 1) * (H - 6)).toFixed(1)}`).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><path d="${d}" fill="none" stroke="#2e8bff" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>`;
+}
+
+function accList(){
+  const keys = Object.keys(DATA.accounts);
+  const list = keys.map(k => { const a = DATA.accounts[k], s = accSeries(k);
+    return {k, name: a.name, verified: true, active: a.balNow > 0, gain: (s.at(-1).i / s[0].i - 1) * 100, dd: maxDD(s), from: s[0].d, to: s.at(-1).d, s, url: a.url}; });
+  return list.sort((a, b) => (b.active - a.active) || (b.s.length - a.s.length));
+}
+
+function privCard(){
+  if (ENTRIES.length < 2) return '';
+  const e = ENTRIES.slice().sort((a, b) => a.date < b.date ? -1 : 1), first = e[0], last = e.at(-1);
+  const dep = e.reduce((t, x) => t + (x.flow > 0 ? x.flow : 0), 0), wd = e.reduce((t, x) => t + (x.flow < 0 ? -x.flow : 0), 0);
+  return `<div class="card" style="cursor:default">
+    <div class="top"><span class="nm">Private broker</span><span class="pill pv">Private</span></div>
+    <div class="g">${money(last.balance)}</div>
+    <div class="note" style="font-size:13px">Started with ${money(first.balance)} in ${fmtMon(first.date)}${wd ? `, ${money(wd)} withdrawn since` : ''}. Same signals, a broker that can't connect to Myfxbook, so balances are reported by the trader.</div>
+    <div class="meta"><span>${fmtMon(first.date)} – now</span><span>Reported</span></div>
+  </div>`;
+}
+
+function renderCards(){
+  const list = accList();
+  $('cards').innerHTML = list.map(a => `<button class="card" type="button" data-k="${a.k}" aria-pressed="${a.k === sel}">
+    <div class="top"><span class="nm">${a.name}</span><span class="pill ${a.verified ? (a.active ? 'on' : 'off') : 'pv'}">${a.verified ? (a.active ? 'Active' : 'Closed') : 'Private'}</span></div>
+    <div class="g ${a.gain < 0 ? 'down' : ''}">${pct(a.gain)}</div>
+    ${spark(a.s)}
+    <div class="meta"><span>${fmtMon(a.from)} – ${a.active ? 'now' : fmtMon(a.to)}</span><span>Max DD ${Math.abs(a.dd).toFixed(1)}%</span></div>
+  </button>`).join('');
+  $('cards').querySelectorAll('.card').forEach(b => b.onclick = () => { sel = b.dataset.k; renderCards(); renderDetail(); $('detail').scrollIntoView({behavior: 'smooth', block: 'start'}); });
+}
+
+function renderDetail(){
+  const a = accList().find(x => x.k === sel); if (!a) return;
+  $('detail').hidden = false;
+  $('dName').textContent = a.name;
+  $('dSub').textContent = `VERIFIED BY MYFXBOOK · ${a.active ? 'ACTIVE' : 'CLOSED'}`;
+  $('dLink').href = a.url;
+  const ms = monthsOf(a.s), best = Math.max(...ms.map(m => m.b / m.a - 1)) * 100;
+  const acc = DATA.accounts[a.k];
+  $('dFacts').innerHTML = [['Total gain', pct(a.gain)], ['Max drawdown', '−' + Math.abs(a.dd).toFixed(1) + '%'], ['Avg. month', acc.monthly], ['Best month', pct(best)]]
+    .map(([t, v]) => `<div><dt>${t}</dt><dd>${v}</dd></div>`).join('');
+  if (view === 'growth') chart($('dChart'), a.s.map(p => ({d: p.d, v: (p.i / a.s[0].i - 1) * 100})), {fmt: v => pct(v), label: 'Account growth', zero: true});
+  else { let pk = -Infinity; chart($('dChart'), a.s.map(p => { pk = Math.max(pk, p.i); return {d: p.d, v: (p.i / pk - 1) * 100}; }), {fmt: v => v.toFixed(1) + '%', label: 'Drawdown from peak', neg: true}); }
+  $('dMonths').innerHTML = ms.slice().reverse().map(m => { const g = (m.b / m.a - 1) * 100; return `<tr><td>${fmtMon(m.m + '-01')}</td><td class="${g >= 0 ? 'up' : 'down'}">${pct(g)}</td></tr>`; }).join('');
+}
+document.querySelectorAll('.subtabs .tab').forEach(b => b.onclick = () => { view = b.dataset.v; document.querySelectorAll('.subtabs .tab').forEach(t => t.setAttribute('aria-pressed', t === b)); renderDetail(); });
+
 function renderTotal(){
-  const days = R.days, last = days[days.length - 1];
-  const firstReal = days.find(x => x.d >= R.firstReal) || days[0];
+  const days = R.days.filter(x => x.d >= R.firstReal), last = days.at(-1);
   $('totResult').textContent = money(R.result);
-  const g = (last.idx / days[0].idx - 1) * 100, gv = (last.idx / firstReal.idx - 1) * 100;
-  $('totGrowth').innerHTML = `<span class="up">${pct(gv)}</span> since ${fmtDate(firstReal.d)}, first Myfxbook day <span style="color:var(--muted)">· ${pct(g)} since ${fmtDate(days[0].d)} incl. exchange</span>`;
-  $('totFacts').innerHTML = [['Put in', R.dep], ['Taken out', R.wd], ['On accounts', R.now], ['Capital + withdrawn', R.now + R.wd]]
+  $('totGrowth').innerHTML = `<span class="up">${pct((last.idx / days[0].idx - 1) * 100)}</span> combined growth since ${fmtDate(days[0].d)}`;
+  $('totFacts').innerHTML = [['Deposited', R.dep], ['Withdrawn', R.wd], ['On accounts now', R.now], ['Capital + withdrawn', R.now + R.wd]]
     .map(([t, v]) => `<div><dt>${t}</dt><dd>${money(v)}</dd></div>`).join('');
-  chart($('totChart'), days.map(x => ({d: x.d, v: x.tot + x.wd, v2: x.tot, est: x.est})), {label: 'Total capital over time'});
-  $('rows').innerHTML = R.rows.map(r => `<tr><td>${r.name}<span class="badge ${r.verified ? 'v' : 'o'}">${r.verified ? 'Verified' : 'Own records'}</span></td>
-    <td>${money(r.dep)}</td><td>${money(r.wd)}</td><td>${money(r.now)}</td><td class="${r.now + r.wd - r.dep >= 0 ? 'up' : 'down'}">${money(r.now + r.wd - r.dep)}</td>
-    <td>${r.url ? `<a class="link" href="${r.url}" target="_blank" rel="noopener">Myfxbook ↗</a>` : '<span style="color:var(--dim)">—</span>'}</td></tr>`).join('');
-  $('rowsFoot').innerHTML = `<tr><td>All accounts</td><td>${money(R.dep)}</td><td>${money(R.wd)}</td><td>${money(R.now)}</td><td class="up">${money(R.result)}</td><td></td></tr>`;
-  const lastMfx = Object.values(DATA.accounts).map(a => a.bal[a.bal.length - 1][0]).sort().pop();
-  $('stamp').textContent = `Myfxbook data to ${fmtDate(lastMfx)} · last exchange record ${ENTRIES.length ? fmtDate(ENTRIES.map(e => e.date).sort().pop()) : '—'} · updated ${fmtDate(DATA.updated)}`;
+  chart($('totChart'), days.map(x => ({d: x.d, v: x.tot + x.wd, v2: x.tot})), {label: 'Total capital over time', zero: true});
+  const lastMfx = Object.values(DATA.accounts).map(a => a.bal.at(-1)[0]).sort().pop();
+  $('stamp').textContent = `Live data to ${fmtDate(lastMfx)} · updated ${fmtDate(DATA.updated)}`;
 }
 
 function renderTabs(){
-  const tabs = [['all', 'All accounts', pct((R.days.at(-1).idx / R.days[0].idx - 1) * 100)], ['jt4', 'JT #4', DATA.accounts.jt4.gain], ['jtpro2', 'JT PRO #2', DATA.accounts.jtpro2.gain]];
-  $('tabs').innerHTML = tabs.map(([k, n, g]) => `<button class="tab" type="button" data-k="${k}" aria-pressed="${k === cur}">${n}<span class="g">${g}</span></button>`).join('');
+  const t = k => { const s = accSeries(k); return pct((s.at(-1).i / s[0].i - 1) * 100); };
+  const tabs = [['all', 'All accounts'], ['jt4', 'JT #4'], ['jtpro2', 'JT PRO #2']];
+  $('tabs').innerHTML = tabs.map(([k, n]) => `<button class="tab" type="button" data-k="${k}" aria-pressed="${k === cur}">${n}<span class="g">${t(k)}</span></button>`).join('');
   $('tabs').querySelectorAll('.tab').forEach(b => b.onclick = () => { cur = b.dataset.k; setupCalc(true); });
 }
-
 function setupCalc(reset){
   renderTabs();
-  const s = series(cur), inp = $('start');
-  inp.min = s[0].d; inp.max = s[s.length - 1].d;
-  const verified = cur === 'all' ? R.firstReal : s[0].d;
-  if (reset || !inp.value || inp.value < inp.min || inp.value > inp.max) inp.value = verified < inp.min ? inp.min : verified;
+  const s = accSeries(cur), inp = $('start');
+  inp.min = s[0].d; inp.max = s.at(-1).d;
+  if (reset || !inp.value || inp.value < inp.min || inp.value > inp.max) inp.value = s[0].d;
   calc();
 }
-
 function calc(){
-  const s = series(cur), amt = Math.max(0, parseFloat($('amt').value) || 0), start = $('start').value;
+  const s = accSeries(cur), amt = Math.max(0, parseFloat($('amt').value) || 0), start = $('start').value;
+  $('small').hidden = !(amt > 0 && amt < 1000);
   let i = 0; while (i + 1 < s.length && s[i + 1].d <= start) i++;
-  const pts = s.slice(i).map(p => ({d: p.d, v: amt * p.i / s[i].i, est: p.est}));
-  const end = pts[pts.length - 1].v, diff = end - amt, p = amt ? diff / amt * 100 : 0;
-  $('resLbl').textContent = `VALUE ON ${fmtDate(pts[pts.length - 1].d).toUpperCase()} IF YOU STARTED ${fmtDate(pts[0].d).toUpperCase()}`;
+  const pts = s.slice(i).map(p => ({d: p.d, v: amt * p.i / s[i].i}));
+  const end = pts.at(-1).v, diff = end - amt, p = amt ? diff / amt * 100 : 0;
+  $('resLbl').textContent = `VALUE ON ${fmtDate(pts.at(-1).d).toUpperCase()} IF YOU STARTED ${fmtDate(pts[0].d).toUpperCase()}`;
   $('resVal').textContent = money(end);
   const low = Math.min(...pts.map(q => q.v));
   $('resDelta').innerHTML = `<span class="${diff >= 0 ? 'up' : 'down'}">${diff >= 0 ? '+' : '−'}${money(Math.abs(diff))} (${pct(p)})</span>` + (low < amt ? ` <span style="color:var(--muted)">· lowest point on the way ${money(low)}</span>` : '');
-  $('resNote').textContent = cur === 'all' && pts[0].d < R.firstReal ? 'Part of this period (shaded) is before Myfxbook tracking and comes from the exchange records, estimated between records.' : '';
-  chart($('calcChart'), pts, {base: amt, label: 'Growth of your amount over time'});
-  renderMonths(pts, amt);
+  chart($('calcChart'), pts, {base: amt, label: 'Your deposit over time'});
+  const ms = []; let prev = amt;
+  for (const q of pts) { const m = q.d.slice(0, 7); let r = ms.at(-1); if (!r || r.m !== m) { r = {m, a: prev, b: q.v}; ms.push(r); } r.b = q.v; prev = q.v; }
+  const mx = Math.max(...ms.map(r => Math.abs(r.b / r.a - 1)), .01), wins = ms.filter(r => r.b >= r.a).length;
+  $('mLbl').textContent = `MONTH BY MONTH WITH ${money(amt)} · ${wins} OF ${ms.length} MONTHS IN PROFIT`;
+  $('mRows').innerHTML = ms.slice().reverse().map(r => { const g = r.b / r.a - 1, w = Math.max(3, Math.round(Math.abs(g) / mx * 60));
+    return `<tr><td>${fmtMon(r.m + '-01')}</td><td><span class="bar ${g < 0 ? 'neg' : ''}" style="width:${w}px"></span>${pct(g * 100)}</td><td class="${g >= 0 ? 'up' : 'down'}">${g >= 0 ? '+' : '−'}${money(Math.abs(r.b - r.a))}</td><td>${money(r.b)}</td></tr>`; }).join('');
 }
-
-function renderMonths(pts, amt){
-  const months = []; let prevEnd = amt;
-  for (const p of pts) {
-    const m = p.d.slice(0, 7); let row = months[months.length - 1];
-    if (!row || row.m !== m) { row = {m, start: prevEnd, end: p.v, est: false}; months.push(row); }
-    row.end = p.v; prevEnd = p.v; if (p.est) row.est = true;
-  }
-  const maxAbs = Math.max(...months.map(r => Math.abs(r.end / r.start - 1)), 0.01);
-  const name = m => new Date(m + '-01T00:00:00').toLocaleDateString('en-US', {month: 'long', year: 'numeric'});
-  const wins = months.filter(r => r.end >= r.start).length;
-  $('mLbl').textContent = `MONTH BY MONTH WITH ${money(amt)} · ${wins} OF ${months.length} MONTHS IN PROFIT`;
-  $('mRows').innerHTML = months.slice().reverse().map(r => {
-    const g = r.end / r.start - 1, w = Math.max(3, Math.round(Math.abs(g) / maxAbs * 60));
-    return `<tr class="${r.est ? 'est' : ''}"><td>${name(r.m)}${r.est ? '<span class="badge o">est.</span>' : ''}</td>
-      <td><span class="bar ${g < 0 ? 'neg' : ''}" style="width:${w}px"></span>${pct(g * 100)}</td>
-      <td class="${g >= 0 ? 'up' : 'down'}">${g >= 0 ? '+' : '−'}${money(Math.abs(r.end - r.start))}</td>
-      <td>${money(r.end)}</td></tr>`;
-  }).join('');
-}
-
 $('amt').addEventListener('input', () => R && calc());
 $('start').addEventListener('change', () => R && calc());
 $('chips').querySelectorAll('.chip').forEach(b => b.onclick = () => {
-  if (!R) return;
-  const s = series(cur), m = b.dataset.m;
-  if (m === '0') $('start').value = s[0].d;
-  else if (m === 'v') $('start').value = cur === 'all' ? R.firstReal : s[0].d;
-  else { const d = new Date(s[s.length - 1].d + 'T00:00:00'); d.setMonth(d.getMonth() - +m);
+  if (!R) return; const s = accSeries(cur), m = +b.dataset.m;
+  if (!m) $('start').value = s[0].d;
+  else { const d = new Date(s.at(-1).d + 'T00:00:00'); d.setMonth(d.getMonth() - m);
     const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; $('start').value = iso < s[0].d ? s[0].d : iso; }
   calc();
 });
 
 const bust = '?t=' + Date.now();
 Promise.all([fetch('data.json' + bust).then(r => r.json()), fetch('exchange.json' + bust).then(r => r.json()).catch(() => ({entries: []}))])
-  .then(([d, ex]) => { DATA = d; ENTRIES = ex.entries || []; R = jtEngine(DATA, ENTRIES); renderTotal(); setupCalc(true); })
-  .catch(() => { $('totResult').innerHTML = '<span class="loading">Could not load data. Refresh the page.</span>'; });
+  .then(([d, ex]) => {
+    DATA = d; ENTRIES = ex.entries || []; R = jtEngine(DATA, ENTRIES);
+    renderCards(); renderDetail(); renderTotal(); setupCalc(true);
+  })
+  .catch(() => { $('cards').innerHTML = '<div class="loading">Could not load live data. Refresh the page.</div>'; });
 </script>
 </body>
 </html>
