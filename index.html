@@ -49,27 +49,31 @@ a.btn{text-decoration:none;display:inline-block}
 .steps span{font-size:14px;color:var(--muted)}
 .final{text-align:left;display:grid;gap:14px}
 .final h2{font-size:clamp(24px,5vw,34px)}
+.lang{position:fixed;z-index:20;top:calc(12px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;background:rgba(6,10,19,.85);backdrop-filter:blur(6px)}
+.lang button{font:inherit;font-family:var(--mono);font-size:12px;color:var(--muted);background:transparent;border:0;padding:6px 11px;cursor:pointer}
+.lang button[aria-pressed="true"]{color:#fff;background:var(--neon)}
 </style>
 </head>
 <body>
+<div class="lang" role="group" aria-label="Language"><button type="button" data-l="en">EN</button><button type="button" data-l="ru">RU</button></div>
 <div class="wrap">
 
   <section class="hero">
     <div class="eyebrow"><span class="live"></span>JT PRO Academy · live track record</div>
-    <h1>Real accounts. Real money. <em>Open to everyone.</em></h1>
-    <p class="lede">Most trading academies show screenshots. We show every account live. Open any of them, see how it grew, where it dipped and how it came back. Then decide for yourself.</p>
+    <h1 data-i18n="h1">Real accounts. Real money. <em>Open to everyone.</em></h1>
+    <p class="lede" data-i18n="lede">Most trading academies show screenshots. We show every account live. Open any of them, see how it grew, where it dipped and how it came back. Then decide for yourself.</p>
     <div class="proof">
-      <div><b>Verified by Myfxbook</b><span>An independent service reads the trades straight from the broker. Nobody can edit them.</span></div>
-      <div><b>Updated every day</b><span>The numbers on this page refresh daily from the live accounts.</span></div>
-      <div><b>Nothing hidden</b><span>Every account is here, including the weak months and the drawdowns.</span></div>
+      <div data-i18n="pr1"><b>Verified by Myfxbook</b><span>An independent service reads the trades straight from the broker. Nobody can edit them.</span></div>
+      <div data-i18n="pr2"><b>Updated every day</b><span>The numbers on this page refresh daily from the live accounts.</span></div>
+      <div data-i18n="pr3"><b>Nothing hidden</b><span>Every account is here, including the weak months and the drawdowns.</span></div>
     </div>
-    <div class="cta"><a class="btn" href="#accounts">See the accounts</a><a class="btn ghost" href="#calculator">Calculate your result</a></div>
+    <div class="cta"><a class="btn" href="#accounts" data-i18n="cta1">See the accounts</a><a class="btn ghost" href="#calculator" data-i18n="cta2">Calculate your result</a></div>
   </section>
 
   <section class="sec" id="accounts">
-    <div class="kicker">01 · Every account, open</div>
-    <h2>Pick an account and look inside</h2>
-    <p>Each card is a separate live account trading the same signals. Tap one to see its full history.</p>
+    <div class="kicker" data-i18n="k1">01 · Every account, open</div>
+    <h2 data-i18n="h2a">Pick an account and look inside</h2>
+    <p data-i18n="p1">Each card is a separate live account trading the same signals. Tap one to see its full history.</p>
     <div class="cards" id="cards"><div class="loading">Loading live data…</div></div>
 
     <div class="panel" id="detail" hidden>
@@ -78,54 +82,54 @@ a.btn{text-decoration:none;display:inline-block}
           <div class="lbl" id="dSub"></div>
           <h2 id="dName"></h2>
         </div>
-        <a class="link" id="dLink" target="_blank" rel="noopener">Check on Myfxbook ↗</a>
+        <a class="link" id="dLink" target="_blank" rel="noopener" data-i18n="dLink">Check on Myfxbook ↗</a>
       </div>
       <dl class="facts" id="dFacts"></dl>
-      <div class="subtabs"><button class="tab" type="button" data-v="growth" aria-pressed="true">Growth</button><button class="tab" type="button" data-v="dd" aria-pressed="false">Drawdown</button></div>
+      <div class="subtabs"><button class="tab" type="button" data-v="growth" aria-pressed="true" data-i18n="vGrowth">Growth</button><button class="tab" type="button" data-v="dd" aria-pressed="false" data-i18n="vDD">Drawdown</button></div>
       <div class="chart" id="dChart"></div>
       <div class="scroll"><table class="months">
-        <thead><tr><th>Month</th><th>Gain</th></tr></thead>
+        <thead><tr data-i18n="th2"><th>Month</th><th>Gain</th></tr></thead>
         <tbody id="dMonths"></tbody>
       </table></div>
     </div>
   </section>
 
   <section class="sec" id="combined">
-    <div class="kicker">02 · All accounts together</div>
-    <h2>The whole picture</h2>
-    <p>Every account added into one. Money withdrawn is counted as profit taken, not as a loss.</p>
+    <div class="kicker" data-i18n="k2">02 · All accounts together</div>
+    <h2 data-i18n="h2b">The whole picture</h2>
+    <p data-i18n="p2">Every account added into one. Money withdrawn is counted as profit taken, not as a loss.</p>
     <div class="panel hero">
       <div style="display:grid;gap:6px">
-        <div class="lbl">TOTAL PROFIT · WITHDRAWALS INCLUDED</div>
+        <div class="lbl" data-i18n="lblTot">TOTAL PROFIT · WITHDRAWALS INCLUDED</div>
         <div class="big" id="totResult">—</div>
         <div class="delta" id="totGrowth"></div>
       </div>
       <dl class="facts" id="totFacts"></dl>
       <div class="chart" id="totChart"></div>
-      <div class="legend"><span><i style="background:var(--neon)"></i>Capital incl. withdrawn</span><span><i style="background:var(--cyan);opacity:.55"></i>On accounts now</span></div>
+      <div class="legend" data-i18n="legend"><span><i style="background:var(--neon)"></i>Capital incl. withdrawn</span><span><i style="background:var(--cyan);opacity:.55"></i>On accounts now</span></div>
     </div>
   </section>
 
   <section class="sec" id="calculator">
-    <div class="kicker">03 · Your numbers</div>
-    <h2>What would your deposit look like?</h2>
-    <p>Enter an amount and a start date. The result follows the real day-by-day growth of the accounts.</p>
+    <div class="kicker" data-i18n="k3">03 · Your numbers</div>
+    <h2 data-i18n="h2c">What would your deposit look like?</h2>
+    <p data-i18n="p3">Enter an amount and a start date. The result follows the real day-by-day growth of the accounts.</p>
     <div class="panel">
       <div class="tabs" id="tabs" role="group" aria-label="Account"></div>
       <div class="fields">
-        <label for="amt">DEPOSIT
+        <label for="amt"><span data-i18n="lDep">DEPOSIT</span>
           <div class="amount"><span>$</span><input id="amt" type="number" inputmode="decimal" min="1" step="100" value="5000"></div>
         </label>
-        <label for="start">START DATE
+        <label for="start"><span data-i18n="lStart">START DATE</span>
           <input id="start" type="date">
         </label>
       </div>
       <div class="chips" id="chips">
-        <button class="chip" data-m="1" type="button">1 month ago</button>
-        <button class="chip" data-m="3" type="button">3 months ago</button>
-        <button class="chip" data-m="0" type="button">From the start</button>
+        <button class="chip" data-m="1" type="button" data-i18n="c1">1 month ago</button>
+        <button class="chip" data-m="3" type="button" data-i18n="c3">3 months ago</button>
+        <button class="chip" data-m="0" type="button" data-i18n="c0">From the start</button>
       </div>
-      <div class="callout" id="small" hidden>
+      <div class="callout" id="small" hidden data-i18n="small">
         <b>Under $1,000? Your plan looks different</b>
         <p>These results come from Jason's steady strategy, built for larger deposits. On a small account it grows too slowly to matter, so small deposits trade the same signals with larger position sizes to grow faster.</p>
         <p>You risk less money in total, but each trade carries more risk for the account. Your curator in the Academy sets the lot size that fits your deposit and your goals.</p>
@@ -139,7 +143,7 @@ a.btn{text-decoration:none;display:inline-block}
       <div style="display:grid;gap:8px">
         <div class="lbl" id="mLbl">MONTH BY MONTH</div>
         <div class="scroll"><table class="months">
-          <thead><tr><th>Month</th><th>Gain</th><th>Your profit</th><th>Your balance</th></tr></thead>
+          <thead><tr data-i18n="th4"><th>Month</th><th>Gain</th><th>Your profit</th><th>Your balance</th></tr></thead>
           <tbody id="mRows"></tbody>
         </table></div>
       </div>
@@ -147,9 +151,9 @@ a.btn{text-decoration:none;display:inline-block}
   </section>
 
   <section class="sec" id="how">
-    <div class="kicker">04 · How it works</div>
-    <h2>Same signals, a plan built for you</h2>
-    <div class="steps">
+    <div class="kicker" data-i18n="k4">04 · How it works</div>
+    <h2 data-i18n="h2d">Same signals, a plan built for you</h2>
+    <div class="steps" data-i18n="steps">
       <div><i>STEP 1</i><b>Join the Academy</b><span>Get the signals Jason trades on the accounts you just looked at.</span></div>
       <div><i>STEP 2</i><b>Meet your curator</b><span>They look at your deposit and goals and set the strategy and lot size that fit.</span></div>
       <div><i>STEP 3</i><b>Trade and track</b><span>Follow the signals on your own account, with your curator a message away.</span></div>
@@ -157,27 +161,69 @@ a.btn{text-decoration:none;display:inline-block}
   </section>
 
   <section class="panel hero final">
-    <h2>You've seen the numbers. <em style="font-style:normal;color:var(--neon)">Now see the system.</em></h2>
-    <p class="lede" style="margin:0">This page is here so you can check that the system works before you trust it with anything. The next step is a conversation with the Academy.</p>
-    <div class="cta"><a class="btn" id="joinBtn" href="https://t.me/JasonProTraid" target="_blank" rel="noopener">Join JT PRO Academy</a></div>
+    <h2 data-i18n="h2e">You've seen the numbers. <em style="font-style:normal;color:var(--neon)">Now see the system.</em></h2>
+    <p class="lede" style="margin:0" data-i18n="p5">This page is here so you can check that the system works before you trust it with anything. The next step is a conversation with the Academy.</p>
+    <div class="cta"><a class="btn" id="joinBtn" href="https://t.me/JasonProTraid" target="_blank" rel="noopener" data-i18n="join">Join JT PRO Academy</a></div>
   </section>
 
   <div class="foot">
     <div class="stamp" id="stamp"></div>
-    <div>Growth figures exclude deposits and withdrawals, the same way Myfxbook counts them. The private broker account is not connected to Myfxbook; its balances are reported by the trader. Past results do not guarantee future returns. Trading with leverage carries a high level of risk and you can lose some or all of your deposit. Nothing on this page is financial advice.</div>
+    <div data-i18n="disc">Growth figures exclude deposits and withdrawals, the same way Myfxbook counts them. The private broker account is not connected to Myfxbook; its balances are reported by the trader. Past results do not guarantee future returns. Trading with leverage carries a high level of risk and you can lose some or all of your deposit. Nothing on this page is financial advice.</div>
   </div>
 </div>
 
 <script src="engine.js"></script>
 <script>
 const ACADEMY_URL = 'https://t.me/JasonProTraid';
+const RU = {
+  h1: 'Реальные счета. Реальные деньги. <em>Открыто для всех.</em>',
+  lede: 'Большинство академий показывают скриншоты. Мы показываем каждый счёт вживую. Открой любой, посмотри, как он рос, где проседал и как восстанавливался. И реши сам.',
+  pr1: '<b>Проверено Myfxbook</b><span>Независимый сервис берёт сделки напрямую у брокера. Изменить их никто не может.</span>',
+  pr2: '<b>Обновляется каждый день</b><span>Цифры на этой странице каждый день обновляются с живых счетов.</span>',
+  pr3: '<b>Ничего не скрыто</b><span>Здесь все счета, включая слабые месяцы и просадки.</span>',
+  cta1: 'Смотреть счета', cta2: 'Посчитать свой результат',
+  k1: '01 · Каждый счёт открыт', h2a: 'Выбери счёт и загляни внутрь',
+  p1: 'Каждая карточка это отдельный живой счёт на тех же сигналах. Нажми, чтобы увидеть всю историю.',
+  dLink: 'Проверить на Myfxbook ↗', vGrowth: 'Рост', vDD: 'Просадка',
+  th2: '<th>Месяц</th><th>Рост</th>',
+  k2: '02 · Все счета вместе', h2b: 'Общая картина',
+  p2: 'Все счета, сложенные в один. Выведенные деньги считаются взятой прибылью, а не потерей.',
+  lblTot: 'ОБЩАЯ ПРИБЫЛЬ · С УЧЁТОМ ВЫВОДОВ',
+  legend: '<span><i style="background:var(--neon)"></i>Капитал с учётом выводов</span><span><i style="background:var(--cyan);opacity:.55"></i>Сейчас на счетах</span>',
+  k3: '03 · Твои цифры', h2c: 'Сколько было бы с твоим депозитом?',
+  p3: 'Введи сумму и дату старта. Результат идёт по реальному росту счетов день за днём.',
+  lDep: 'ДЕПОЗИТ', lStart: 'ДАТА СТАРТА', c1: 'Месяц назад', c3: '3 месяца назад', c0: 'С самого начала',
+  small: '<b>Меньше $1,000? Твой план будет другим</b><p>Эти результаты получены на сдержанной стратегии Джейсона, рассчитанной на крупные депозиты. На маленьком счёте она растит его слишком медленно, поэтому малые депозиты торгуют по тем же сигналам, но более крупными лотами, чтобы счёт рос быстрее.</p><p>Денег в риске меньше, но каждая сделка рискованнее для самого счёта. Куратор в академии подберёт лот под твой депозит и цели.</p>',
+  th4: '<th>Месяц</th><th>Рост</th><th>Твоя прибыль</th><th>Твой баланс</th>',
+  k4: '04 · Как это работает', h2d: 'Те же сигналы, план под тебя',
+  steps: '<div><i>ШАГ 1</i><b>Вступи в академию</b><span>Получай те же сигналы, по которым Джейсон торгует на этих счетах.</span></div><div><i>ШАГ 2</i><b>Познакомься с куратором</b><span>Он посмотрит на твой депозит и цели и подберёт стратегию и размер лота.</span></div><div><i>ШАГ 3</i><b>Торгуй и следи</b><span>Повторяй сигналы на своём счёте, куратор на связи.</span></div>',
+  h2e: 'Цифры ты увидел. <em style="font-style:normal;color:var(--neon)">Теперь посмотри на систему.</em>',
+  p5: 'Эта страница нужна, чтобы ты убедился, что система работает, прежде чем ей доверять. Следующий шаг это разговор с академией.',
+  join: 'Вступить в JT PRO Academy',
+  disc: 'Рост считается без учёта пополнений и выводов, так же, как на Myfxbook. Счёт у частного брокера не подключён к Myfxbook, его балансы сообщает трейдер. Прошлые результаты не гарантируют будущей доходности. Торговля с плечом связана с высоким риском, можно потерять часть или весь депозит. Информация на странице не является финансовой рекомендацией.'
+};
+const EN = {};
+document.querySelectorAll('[data-i18n]').forEach(el => EN[el.dataset.i18n] = el.innerHTML);
+let L = 'en';
+try { if (localStorage.getItem('jtLang') === 'ru') L = 'ru'; } catch (e) {}
+const T = (en, ru) => L === 'ru' ? ru : en;
+const LOC = () => L === 'ru' ? 'ru-RU' : 'en-US';
+function applyLang(){
+  document.documentElement.lang = L;
+  document.title = T('JT PRO Academy · Live Track Record', 'JT PRO Academy · Статистика в реальном времени');
+  document.querySelectorAll('[data-i18n]').forEach(el => el.innerHTML = (L === 'ru' ? RU : EN)[el.dataset.i18n]);
+  document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === L));
+  if (R) { renderCards(); renderDetail(); renderTotal(); setupCalc(false); }
+}
+document.querySelectorAll('.lang button').forEach(b => b.onclick = () => { L = b.dataset.l; try { localStorage.setItem('jtLang', L); } catch (e) {} applyLang(); });
 let DATA = null, ENTRIES = [], R = null, cur = 'all', sel = 'jt4', view = 'growth';
 const $ = id => document.getElementById(id);
 const money = v => (v < 0 ? '−$' : '$') + Math.round(Math.abs(v)).toLocaleString('en-US');
-const fmtDate = s => new Date(s + 'T00:00:00').toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
-const fmtMon = s => new Date(s + 'T00:00:00').toLocaleDateString('en-US', {month:'short', year:'numeric'});
+const fmtDate = s => new Date(s + 'T00:00:00').toLocaleDateString(LOC(), {month:'short', day:'numeric', year:'numeric'});
+const fmtMon = s => new Date(s + 'T00:00:00').toLocaleDateString(LOC(), {month:'short', year:'numeric'});
 const pct = v => (v >= 0 ? '+' : '') + v.toLocaleString('en-US', {maximumFractionDigits: Math.abs(v) >= 100 ? 0 : 1}) + '%';
 $('joinBtn').href = ACADEMY_URL;
+applyLang();
 
 // account series: growth index by date
 function accSeries(key){
@@ -251,20 +297,20 @@ function privCard(){
   const e = ENTRIES.slice().sort((a, b) => a.date < b.date ? -1 : 1), first = e[0], last = e.at(-1);
   const dep = e.reduce((t, x) => t + (x.flow > 0 ? x.flow : 0), 0), wd = e.reduce((t, x) => t + (x.flow < 0 ? -x.flow : 0), 0);
   return `<div class="card" style="cursor:default">
-    <div class="top"><span class="nm">Private broker</span><span class="pill pv">Private</span></div>
+    <div class="top"><span class="nm">${T('Private broker', 'Частный брокер')}</span><span class="pill pv">${T('Private', 'Частный')}</span></div>
     <div class="g">${money(last.balance)}</div>
-    <div class="note" style="font-size:13px">Started with ${money(first.balance)} in ${fmtMon(first.date)}${wd ? `, ${money(wd)} withdrawn since` : ''}. Same signals, a broker that can't connect to Myfxbook, so balances are reported by the trader.</div>
-    <div class="meta"><span>${fmtMon(first.date)} – now</span><span>Reported</span></div>
+    <div class="note" style="font-size:13px">${T(`Started with ${money(first.balance)} in ${fmtMon(first.date)}${wd ? `, ${money(wd)} withdrawn since` : ''}. Same signals, a broker that can't connect to Myfxbook, so balances are reported by the trader.`, `Старт с ${money(first.balance)} в ${fmtMon(first.date)}${wd ? `, с тех пор выведено ${money(wd)}` : ''}. Те же сигналы, брокер не подключается к Myfxbook, поэтому балансы сообщает трейдер.`)}</div>
+    <div class="meta"><span>${fmtMon(first.date)} – ${T('now', 'сейчас')}</span><span>${T('Reported', 'Со слов трейдера')}</span></div>
   </div>`;
 }
 
 function renderCards(){
   const list = accList();
   $('cards').innerHTML = list.map(a => `<button class="card" type="button" data-k="${a.k}" aria-pressed="${a.k === sel}">
-    <div class="top"><span class="nm">${a.name}</span><span class="pill ${a.verified ? (a.active ? 'on' : 'off') : 'pv'}">${a.verified ? (a.active ? 'Active' : 'Closed') : 'Private'}</span></div>
+    <div class="top"><span class="nm">${a.name}</span><span class="pill ${a.verified ? (a.active ? 'on' : 'off') : 'pv'}">${a.active ? T('Active', 'Активен') : T('Closed', 'Закрыт')}</span></div>
     <div class="g ${a.gain < 0 ? 'down' : ''}">${pct(a.gain)}</div>
     ${spark(a.s)}
-    <div class="meta"><span>${fmtMon(a.from)} – ${a.active ? 'now' : fmtMon(a.to)}</span><span>Max DD ${Math.abs(a.dd).toFixed(1)}%</span></div>
+    <div class="meta"><span>${fmtMon(a.from)} – ${a.active ? T('now', 'сейчас') : fmtMon(a.to)}</span><span>${T('Max DD', 'Макс. просадка')} ${Math.abs(a.dd).toFixed(1)}%</span></div>
   </button>`).join('') + privCard();
   $('cards').querySelectorAll('.card[data-k]').forEach(b => b.onclick = () => { sel = b.dataset.k; renderCards(); renderDetail(); $('detail').scrollIntoView({behavior: 'smooth', block: 'start'}); });
 }
@@ -273,14 +319,14 @@ function renderDetail(){
   const a = accList().find(x => x.k === sel); if (!a) return;
   $('detail').hidden = false;
   $('dName').textContent = a.name;
-  $('dSub').textContent = `VERIFIED BY MYFXBOOK · ${a.active ? 'ACTIVE' : 'CLOSED'}`;
+  $('dSub').textContent = T(`VERIFIED BY MYFXBOOK · ${a.active ? 'ACTIVE' : 'CLOSED'}`, `ПРОВЕРЕНО MYFXBOOK · ${a.active ? 'АКТИВЕН' : 'ЗАКРЫТ'}`);
   $('dLink').href = a.url;
   const ms = monthsOf(a.s), best = Math.max(...ms.map(m => m.b / m.a - 1)) * 100;
   const acc = DATA.accounts[a.k];
-  $('dFacts').innerHTML = [['Total gain', pct(a.gain)], ['Max drawdown', '−' + Math.abs(a.dd).toFixed(1) + '%'], ['Avg. month', acc.monthly], ['Best month', pct(best)]]
+  $('dFacts').innerHTML = [[T('Total gain', 'Общий рост'), pct(a.gain)], [T('Max drawdown', 'Макс. просадка'), '−' + Math.abs(a.dd).toFixed(1) + '%'], [T('Avg. month', 'Средний месяц'), acc.monthly], [T('Best month', 'Лучший месяц'), pct(best)]]
     .map(([t, v]) => `<div><dt>${t}</dt><dd>${v}</dd></div>`).join('');
-  if (view === 'growth') chart($('dChart'), a.s.map(p => ({d: p.d, v: (p.i - 1) * 100})), {fmt: v => pct(v), label: 'Account growth', zero: true});
-  else { let pk = 1; chart($('dChart'), a.s.map(p => { pk = Math.max(pk, p.i); return {d: p.d, v: (p.i / pk - 1) * 100}; }), {fmt: v => v.toFixed(1) + '%', label: 'Drawdown from peak', neg: true}); }
+  if (view === 'growth') chart($('dChart'), a.s.map(p => ({d: p.d, v: (p.i - 1) * 100})), {fmt: v => pct(v), label: T('Account growth', 'Рост счёта'), zero: true});
+  else { let pk = 1; chart($('dChart'), a.s.map(p => { pk = Math.max(pk, p.i); return {d: p.d, v: (p.i / pk - 1) * 100}; }), {fmt: v => v.toFixed(1) + '%', label: T('Drawdown from peak', 'Просадка от пика'), neg: true}); }
   $('dMonths').innerHTML = ms.slice().reverse().map(m => { const g = (m.b / m.a - 1) * 100; return `<tr><td>${fmtMon(m.m + '-01')}</td><td class="${g >= 0 ? 'up' : 'down'}">${pct(g)}</td></tr>`; }).join('');
 }
 document.querySelectorAll('.subtabs .tab').forEach(b => b.onclick = () => { view = b.dataset.v; document.querySelectorAll('.subtabs .tab').forEach(t => t.setAttribute('aria-pressed', t === b)); renderDetail(); });
@@ -288,17 +334,17 @@ document.querySelectorAll('.subtabs .tab').forEach(b => b.onclick = () => { view
 function renderTotal(){
   const days = R.days.filter(x => x.d >= R.firstReal), last = days.at(-1);
   $('totResult').textContent = money(R.result);
-  $('totGrowth').innerHTML = `<span class="up">${pct((last.idx / days[0].idx - 1) * 100)}</span> combined growth since ${fmtDate(days[0].d)}`;
-  $('totFacts').innerHTML = [['Deposited', R.dep], ['Withdrawn', R.wd], ['On accounts now', R.now], ['Capital + withdrawn', R.now + R.wd]]
+  $('totGrowth').innerHTML = `<span class="up">${pct((last.idx / days[0].idx - 1) * 100)}</span> ${T('combined growth since', 'общий рост с')} ${fmtDate(days[0].d)}`;
+  $('totFacts').innerHTML = [[T('Deposited', 'Внесено'), R.dep], [T('Withdrawn', 'Выведено'), R.wd], [T('On accounts now', 'Сейчас на счетах'), R.now], [T('Capital + withdrawn', 'Капитал + выводы'), R.now + R.wd]]
     .map(([t, v]) => `<div><dt>${t}</dt><dd>${money(v)}</dd></div>`).join('');
-  chart($('totChart'), days.map(x => ({d: x.d, v: x.tot + x.wd, v2: x.tot})), {label: 'Total capital over time', zero: true});
+  chart($('totChart'), days.map(x => ({d: x.d, v: x.tot + x.wd, v2: x.tot})), {label: T('Total capital over time', 'Общий капитал'), zero: true});
   const lastMfx = Object.values(DATA.accounts).map(a => a.bal.at(-1)[0]).sort().pop();
-  $('stamp').textContent = `Live data to ${fmtDate(lastMfx)} · updated ${fmtDate(DATA.updated)}`;
+  $('stamp').textContent = T(`Live data to ${fmtDate(lastMfx)} · updated ${fmtDate(DATA.updated)}`, `Данные по ${fmtDate(lastMfx)} · обновлено ${fmtDate(DATA.updated)}`);
 }
 
 function renderTabs(){
   const t = k => { const s = accSeries(k); return pct((s.at(-1).i / s[0].i - 1) * 100); };
-  const tabs = [['all', 'All accounts'], ['jt4', 'JT #4'], ['jtpro2', 'JT PRO #2']];
+  const tabs = [['all', T('All accounts', 'Все счета')], ['jt4', 'JT #4'], ['jtpro2', 'JT PRO #2']];
   $('tabs').innerHTML = tabs.map(([k, n]) => `<button class="tab" type="button" data-k="${k}" aria-pressed="${k === cur}">${n}<span class="g">${t(k)}</span></button>`).join('');
   $('tabs').querySelectorAll('.tab').forEach(b => b.onclick = () => { cur = b.dataset.k; setupCalc(true); });
 }
@@ -315,15 +361,15 @@ function calc(){
   let i = 0; while (i + 1 < s.length && s[i + 1].d <= start) i++;
   const pts = s.slice(i).map(p => ({d: p.d, v: amt * p.i / s[i].i}));
   const end = pts.at(-1).v, diff = end - amt, p = amt ? diff / amt * 100 : 0;
-  $('resLbl').textContent = `VALUE ON ${fmtDate(pts.at(-1).d).toUpperCase()} IF YOU STARTED ${fmtDate(pts[0].d).toUpperCase()}`;
+  $('resLbl').textContent = T(`VALUE ON ${fmtDate(pts.at(-1).d)} IF YOU STARTED ${fmtDate(pts[0].d)}`, `СУММА НА ${fmtDate(pts.at(-1).d)} ПРИ СТАРТЕ ${fmtDate(pts[0].d)}`).toUpperCase();
   $('resVal').textContent = money(end);
   const low = Math.min(...pts.map(q => q.v));
-  $('resDelta').innerHTML = `<span class="${diff >= 0 ? 'up' : 'down'}">${diff >= 0 ? '+' : '−'}${money(Math.abs(diff))} (${pct(p)})</span>` + (low < amt ? ` <span style="color:var(--muted)">· lowest point on the way ${money(low)}</span>` : '');
-  chart($('calcChart'), pts, {base: amt, label: 'Your deposit over time'});
+  $('resDelta').innerHTML = `<span class="${diff >= 0 ? 'up' : 'down'}">${diff >= 0 ? '+' : '−'}${money(Math.abs(diff))} (${pct(p)})</span>` + (low < amt ? ` <span style="color:var(--muted)">· ${T('lowest point on the way', 'самая низкая точка по пути')} ${money(low)}</span>` : '');
+  chart($('calcChart'), pts, {base: amt, label: T('Your deposit over time', 'Твой депозит во времени')});
   const ms = []; let prev = amt;
   for (const q of pts) { const m = q.d.slice(0, 7); let r = ms.at(-1); if (!r || r.m !== m) { r = {m, a: prev, b: q.v}; ms.push(r); } r.b = q.v; prev = q.v; }
   const mx = Math.max(...ms.map(r => Math.abs(r.b / r.a - 1)), .01), wins = ms.filter(r => r.b >= r.a).length;
-  $('mLbl').textContent = `MONTH BY MONTH WITH ${money(amt)} · ${wins} OF ${ms.length} MONTHS IN PROFIT`;
+  $('mLbl').textContent = T(`MONTH BY MONTH WITH ${money(amt)} · ${wins} OF ${ms.length} MONTHS IN PROFIT`, `ПО МЕСЯЦАМ С ${money(amt)} · ${wins} ИЗ ${ms.length} МЕСЯЦЕВ В ПЛЮСЕ`);
   $('mRows').innerHTML = ms.slice().reverse().map(r => { const g = r.b / r.a - 1, w = Math.max(3, Math.round(Math.abs(g) / mx * 60));
     return `<tr><td>${fmtMon(r.m + '-01')}</td><td><span class="bar ${g < 0 ? 'neg' : ''}" style="width:${w}px"></span>${pct(g * 100)}</td><td class="${g >= 0 ? 'up' : 'down'}">${g >= 0 ? '+' : '−'}${money(Math.abs(r.b - r.a))}</td><td>${money(r.b)}</td></tr>`; }).join('');
 }
@@ -341,9 +387,9 @@ const bust = '?t=' + Date.now();
 Promise.all([fetch('data.json' + bust).then(r => r.json()), fetch('exchange.json' + bust).then(r => r.json()).catch(() => ({entries: []}))])
   .then(([d, ex]) => {
     DATA = d; ENTRIES = ex.entries || []; R = jtEngine(DATA, ENTRIES);
-    renderCards(); renderDetail(); renderTotal(); setupCalc(true);
+    applyLang(); setupCalc(true);
   })
-  .catch(() => { $('cards').innerHTML = '<div class="loading">Could not load live data. Refresh the page.</div>'; });
+  .catch(() => { $('cards').innerHTML = `<div class="loading">${T('Could not load live data. Refresh the page.', 'Не удалось загрузить данные. Обнови страницу.')}</div>`; });
 </script>
 </body>
 </html>
