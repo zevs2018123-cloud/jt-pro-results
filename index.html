@@ -55,7 +55,7 @@ a.btn{text-decoration:none;display:inline-block}
 </style>
 </head>
 <body>
-<div class="lang" role="group" aria-label="Language"><button type="button" data-l="en">EN</button><button type="button" data-l="ru">RU</button><button type="button" data-l="fr">FR</button><button type="button" data-l="es">ES</button><button type="button" data-l="de">DE</button></div>
+<div class="lang" role="group" aria-label="Language"><button type="button" data-l="en">EN</button><button type="button" data-l="fr">FR</button><button type="button" data-l="es">ES</button><button type="button" data-l="de">DE</button><button type="button" data-l="ru">RU</button></div>
 <div class="wrap">
 
   <section class="hero">
@@ -322,7 +322,7 @@ const DE = {
 };
 const EN = {};
 document.querySelectorAll('[data-i18n]').forEach(el => EN[el.dataset.i18n] = el.innerHTML);
-const LANGS = ['en', 'ru', 'fr', 'es', 'de'];
+const LANGS = ['en', 'fr', 'es', 'de', 'ru'];
 let L = 'en';
 // ?lang=xx from the bot/academy link wins, then the visitor's own pick, then the browser language
 try {
