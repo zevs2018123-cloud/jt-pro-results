@@ -55,7 +55,7 @@ a.btn{text-decoration:none;display:inline-block}
 </style>
 </head>
 <body>
-<div class="lang" role="group" aria-label="Language"><button type="button" data-l="en">EN</button><button type="button" data-l="ru">RU</button><button type="button" data-l="fr">FR</button></div>
+<div class="lang" role="group" aria-label="Language"><button type="button" data-l="en">EN</button><button type="button" data-l="ru">RU</button><button type="button" data-l="fr">FR</button><button type="button" data-l="es">ES</button><button type="button" data-l="de">DE</button></div>
 <div class="wrap">
 
   <section class="hero">
@@ -242,9 +242,87 @@ const FR = {
  "join": "Rejoindre JT PRO Academy",
  "disc": "La croissance est calculée hors dépôts et retraits, comme le fait Myfxbook. Les totaux et le calculateur ne comptent que les comptes vérifiés par Myfxbook. Le compte chez le broker privé est affiché à part ; ses soldes sont déclarés par le trader. Les résultats passés ne garantissent pas les rendements futurs. Le trading avec effet de levier comporte un risque élevé et tu peux perdre tout ou partie de ton dépôt. Rien sur cette page ne constitue un conseil financier."
 };
+const ES = {
+ "eyebrow": "JT PRO Academy · estadísticas en vivo",
+ "h1": "Cuentas reales. Dinero real. <em>Abierto para todos.</em>",
+ "lede": "La mayoría de las academias de trading muestran capturas de pantalla. Nosotros mostramos cada cuenta en vivo. Abre cualquiera, mira cómo creció, dónde bajó y cómo se recuperó. Después decide tú mismo.",
+ "pr1": "<b>Verificado por Myfxbook</b><span>Un servicio independiente toma las operaciones directamente del bróker. Nadie puede modificarlas.</span>",
+ "pr2": "<b>Actualizado cada día</b><span>Las cifras de esta página se actualizan a diario desde las cuentas reales.</span>",
+ "pr3": "<b>Nada oculto</b><span>Todas las cuentas están aquí, incluidos los meses flojos y los drawdowns.</span>",
+ "cta1": "Ver las cuentas",
+ "cta2": "Calcula tu resultado",
+ "k1": "01 · Cada cuenta, abierta",
+ "h2a": "Elige una cuenta y mira dentro",
+ "p1": "Cada tarjeta es una cuenta real distinta que opera las mismas señales. Toca una para ver todo su historial.",
+ "dLink": "Comprobar en Myfxbook ↗",
+ "vGrowth": "Crecimiento",
+ "vDD": "Drawdown",
+ "th2": "<th>Mes</th><th>Ganancia</th>",
+ "k2": "02 · Todas las cuentas juntas",
+ "h2b": "La imagen completa",
+ "p2": "Todas las cuentas de Myfxbook sumadas en una. El dinero retirado cuenta como beneficio cobrado, no como pérdida.",
+ "lblTot": "BENEFICIO TOTAL · RETIROS INCLUIDOS",
+ "legend": "<span><i style=\"background:var(--neon)\"></i>Capital con retiros</span><span><i style=\"background:var(--cyan);opacity:.55\"></i>Ahora en las cuentas</span>",
+ "k3": "03 · Tus números",
+ "h2c": "¿Cómo estaría tu depósito?",
+ "p3": "Introduce un monto y una fecha de inicio. El resultado sigue el crecimiento real de las cuentas, día a día.",
+ "lDep": "DEPÓSITO",
+ "lStart": "FECHA DE INICIO",
+ "c1": "Hace 1 mes",
+ "c3": "Hace 3 meses",
+ "c0": "Desde el inicio",
+ "small": "<b>¿Menos de $1,000? Tu plan será distinto</b><p>Estos resultados vienen de la estrategia prudente de Jason, pensada para depósitos grandes. En una cuenta pequeña crece demasiado despacio para que se note, así que los depósitos pequeños operan las mismas señales con posiciones más grandes para crecer más rápido.</p><p>Arriesgas menos dinero en total, pero cada operación pesa más para la cuenta. Tu curador en la Academia fija el tamaño de lote que encaja con tu depósito y tus objetivos.</p>",
+ "th4": "<th>Mes</th><th>Ganancia</th><th>Tu beneficio</th><th>Tu saldo</th>",
+ "k4": "04 · Cómo funciona",
+ "h2d": "Las mismas señales, un plan hecho para ti",
+ "steps": "<div><i>PASO 1</i><b>Únete a la Academia</b><span>Recibe las señales que Jason opera en las cuentas que acabas de ver.</span></div><div><i>PASO 2</i><b>Conoce a tu curador</b><span>Revisa tu depósito y tus objetivos y fija la estrategia y el tamaño de lote adecuados.</span></div><div><i>PASO 3</i><b>Opera y sigue tus resultados</b><span>Sigue las señales en tu propia cuenta, con tu curador a un mensaje de distancia.</span></div>",
+ "h2e": "Ya viste los números. <em style=\"font-style:normal;color:var(--neon)\">Ahora mira el sistema.</em>",
+ "p5": "Esta página existe para que compruebes que el sistema funciona antes de confiarle nada. El siguiente paso es una conversación con la Academia.",
+ "join": "Unirme a JT PRO Academy",
+ "disc": "El crecimiento se calcula sin depósitos ni retiros, igual que en Myfxbook. Los totales y la calculadora solo cuentan las cuentas verificadas por Myfxbook. La cuenta del bróker privado se muestra aparte; sus saldos los declara el trader. Los resultados pasados no garantizan rendimientos futuros. Operar con apalancamiento conlleva un alto riesgo y puedes perder parte o la totalidad de tu depósito. Nada en esta página es asesoramiento financiero."
+};
+const DE = {
+ "eyebrow": "JT PRO Academy · Live-Statistik",
+ "h1": "Echte Konten. Echtes Geld. <em>Offen für alle.</em>",
+ "lede": "Die meisten Trading-Akademien zeigen Screenshots. Wir zeigen jedes Konto live. Öffne ein beliebiges, sieh, wie es gewachsen ist, wo es gefallen ist und wie es sich erholt hat. Dann entscheide selbst.",
+ "pr1": "<b>Von Myfxbook verifiziert</b><span>Ein unabhängiger Dienst liest die Trades direkt beim Broker aus. Niemand kann sie ändern.</span>",
+ "pr2": "<b>Täglich aktualisiert</b><span>Die Zahlen auf dieser Seite werden jeden Tag von den echten Konten aktualisiert.</span>",
+ "pr3": "<b>Nichts versteckt</b><span>Alle Konten sind hier, auch die schwachen Monate und die Drawdowns.</span>",
+ "cta1": "Konten ansehen",
+ "cta2": "Dein Ergebnis berechnen",
+ "k1": "01 · Jedes Konto, offen",
+ "h2a": "Wähle ein Konto und schau hinein",
+ "p1": "Jede Karte ist ein eigenes echtes Konto, das dieselben Signale handelt. Tippe darauf, um den ganzen Verlauf zu sehen.",
+ "dLink": "Auf Myfxbook prüfen ↗",
+ "vGrowth": "Wachstum",
+ "vDD": "Drawdown",
+ "th2": "<th>Monat</th><th>Gewinn</th>",
+ "k2": "02 · Alle Konten zusammen",
+ "h2b": "Das Gesamtbild",
+ "p2": "Alle Myfxbook-Konten zu einem zusammengerechnet. Ausgezahltes Geld zählt als realisierter Gewinn, nicht als Verlust.",
+ "lblTot": "GESAMTGEWINN · INKL. AUSZAHLUNGEN",
+ "legend": "<span><i style=\"background:var(--neon)\"></i>Kapital inkl. Auszahlungen</span><span><i style=\"background:var(--cyan);opacity:.55\"></i>Aktuell auf den Konten</span>",
+ "k3": "03 · Deine Zahlen",
+ "h2c": "Wie sähe deine Einzahlung aus?",
+ "p3": "Gib einen Betrag und ein Startdatum ein. Das Ergebnis folgt dem echten Wachstum der Konten, Tag für Tag.",
+ "lDep": "EINZAHLUNG",
+ "lStart": "STARTDATUM",
+ "c1": "Vor 1 Monat",
+ "c3": "Vor 3 Monaten",
+ "c0": "Von Anfang an",
+ "small": "<b>Unter 1.000 $? Dein Plan sieht anders aus</b><p>Diese Ergebnisse stammen aus Jasons vorsichtiger Strategie für größere Einzahlungen. Auf einem kleinen Konto wächst sie zu langsam, um etwas zu bewirken, deshalb handeln kleine Einzahlungen dieselben Signale mit größeren Positionen, um schneller zu wachsen.</p><p>Du riskierst insgesamt weniger Geld, aber jeder Trade wiegt schwerer für das Konto. Dein Kurator in der Akademie legt die Lotgröße fest, die zu deiner Einzahlung und deinen Zielen passt.</p>",
+ "th4": "<th>Monat</th><th>Gewinn</th><th>Dein Gewinn</th><th>Dein Saldo</th>",
+ "k4": "04 · So funktioniert es",
+ "h2d": "Dieselben Signale, ein Plan für dich",
+ "steps": "<div><i>SCHRITT 1</i><b>Tritt der Akademie bei</b><span>Erhalte die Signale, die Jason auf den Konten handelt, die du gerade gesehen hast.</span></div><div><i>SCHRITT 2</i><b>Lerne deinen Kurator kennen</b><span>Er sieht sich deine Einzahlung und Ziele an und legt die passende Strategie und Lotgröße fest.</span></div><div><i>SCHRITT 3</i><b>Handle und verfolge</b><span>Folge den Signalen auf deinem eigenen Konto, dein Kurator ist nur eine Nachricht entfernt.</span></div>",
+ "h2e": "Du hast die Zahlen gesehen. <em style=\"font-style:normal;color:var(--neon)\">Jetzt sieh dir das System an.</em>",
+ "p5": "Diese Seite gibt es, damit du prüfen kannst, dass das System funktioniert, bevor du ihm etwas anvertraust. Der nächste Schritt ist ein Gespräch mit der Akademie.",
+ "join": "JT PRO Academy beitreten",
+ "disc": "Das Wachstum wird ohne Ein- und Auszahlungen berechnet, so wie Myfxbook es zählt. Summen und Rechner berücksichtigen nur von Myfxbook verifizierte Konten. Das Konto beim privaten Broker wird separat gezeigt; seine Salden meldet der Trader. Vergangene Ergebnisse garantieren keine zukünftigen Renditen. Der Handel mit Hebel ist mit hohem Risiko verbunden, und du kannst einen Teil oder deine gesamte Einzahlung verlieren. Nichts auf dieser Seite ist eine Finanzberatung."
+};
 const EN = {};
 document.querySelectorAll('[data-i18n]').forEach(el => EN[el.dataset.i18n] = el.innerHTML);
-const LANGS = ['en', 'ru', 'fr'];
+const LANGS = ['en', 'ru', 'fr', 'es', 'de'];
 let L = 'en';
 // ?lang=xx from the bot/academy link wins, then the visitor's own pick, then the browser language
 try {
@@ -253,12 +331,12 @@ try {
   const nav = (navigator.language || 'en').slice(0, 2).toLowerCase();
   L = LANGS.includes(q) ? q : LANGS.includes(saved) ? saved : LANGS.includes(nav) ? nav : 'en';
 } catch (e) {}
-const T = (en, ru, fr) => L === 'ru' ? ru : L === 'fr' ? fr : en;
-const LOC = () => L === 'ru' ? 'ru-RU' : L === 'fr' ? 'fr-FR' : 'en-US';
+const T = (en, ru, fr, es, de) => ({ru, fr, es, de})[L] || en;
+const LOC = () => ({ru: 'ru-RU', fr: 'fr-FR', es: 'es-ES', de: 'de-DE'})[L] || 'en-US';
 function applyLang(){
   document.documentElement.lang = L;
-  document.title = T('JT PRO Academy · Live Track Record', 'JT PRO Academy · Статистика в реальном времени', "JT PRO Academy · Statistiques en direct");
-  document.querySelectorAll('[data-i18n]').forEach(el => el.innerHTML = (L === 'ru' ? RU : L === 'fr' ? FR : EN)[el.dataset.i18n]);
+  document.title = T('JT PRO Academy · Live Track Record', 'JT PRO Academy · Статистика в реальном времени', "JT PRO Academy · Statistiques en direct", "JT PRO Academy · Estadísticas en vivo", "JT PRO Academy · Live-Statistik");
+  document.querySelectorAll('[data-i18n]').forEach(el => el.innerHTML = (({ru: RU, fr: FR, es: ES, de: DE})[L] || EN)[el.dataset.i18n]);
   document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === L));
   if (R) { renderCards(); renderDetail(); renderTotal(); setupCalc(false); }
 }
@@ -342,11 +420,11 @@ function accList(){
 function privCard(){
   if (!ENTRIES.length) return '';
   const e = ENTRIES.slice().sort((a, b) => a.date < b.date ? -1 : 1), last = e.at(-1);
-  const rows = e.slice().reverse().map(x => `<div class="meta" style="margin:0"><span>${fmtDate(x.date)}</span><span>${money(x.balance)}${x.flow ? ` · ${x.flow > 0 ? T('deposit', 'пополнение', "dépôt") : T('withdrawal', 'вывод', "retrait")} ${money(Math.abs(x.flow))}` : ''}</span></div>`).join('');
+  const rows = e.slice().reverse().map(x => `<div class="meta" style="margin:0"><span>${fmtDate(x.date)}</span><span>${money(x.balance)}${x.flow ? ` · ${x.flow > 0 ? T('deposit', 'пополнение', "dépôt", "depósito", "Einzahlung") : T('withdrawal', 'вывод', "retrait", "retiro", "Auszahlung")} ${money(Math.abs(x.flow))}` : ''}</span></div>`).join('');
   return `<div class="card" style="cursor:default">
-    <div class="top"><span class="nm">${T('Private broker account', 'Счёт у частного брокера', "Compte chez un broker privé")}</span><span class="pill pv">${T('Reported by trader', 'Данные трейдера', "Déclaré par le trader")}</span></div>
+    <div class="top"><span class="nm">${T('Private broker account', 'Счёт у частного брокера', "Compte chez un broker privé", "Cuenta en un bróker privado", "Konto bei einem privaten Broker")}</span><span class="pill pv">${T('Reported by trader', 'Данные трейдера', "Déclaré par le trader", "Declarado por el trader", "Vom Trader gemeldet")}</span></div>
     <div class="g">${money(last.balance)}</div>
-    <div class="note" style="font-size:13px">${T('Same signals. This is a closed private broker that does not connect to Myfxbook, so the balances below are reported by the trader. Not counted in the totals or the calculator.', 'Те же сигналы. Это закрытый частный брокер, он не подключается к Myfxbook, поэтому балансы ниже сообщает трейдер. В общий итог и калькулятор не входит.', "Mêmes signaux. Ce broker privé et fermé ne se connecte pas à Myfxbook, les soldes ci-dessous sont donc déclarés par le trader. Non inclus dans les totaux ni dans le calculateur.")}</div>
+    <div class="note" style="font-size:13px">${T('Same signals. This is a closed private broker that does not connect to Myfxbook, so the balances below are reported by the trader. Not counted in the totals or the calculator.', 'Те же сигналы. Это закрытый частный брокер, он не подключается к Myfxbook, поэтому балансы ниже сообщает трейдер. В общий итог и калькулятор не входит.', "Mêmes signaux. Ce broker privé et fermé ne se connecte pas à Myfxbook, les soldes ci-dessous sont donc déclarés par le trader. Non inclus dans les totaux ni dans le calculateur.", "Mismas señales. Este bróker privado y cerrado no se conecta a Myfxbook, así que los saldos de abajo los declara el trader. No se incluye en los totales ni en la calculadora.", "Gleiche Signale. Dieser private, geschlossene Broker lässt sich nicht mit Myfxbook verbinden, daher meldet der Trader die Salden unten selbst. Nicht in den Summen und im Rechner enthalten.")}</div>
     <div style="display:grid;gap:4px">${rows}</div>
   </div>`;
 }
@@ -354,10 +432,10 @@ function privCard(){
 function renderCards(){
   const list = accList();
   $('cards').innerHTML = list.map(a => `<button class="card" type="button" data-k="${a.k}" aria-pressed="${a.k === sel}">
-    <div class="top"><span class="nm">${a.name}</span><span class="pill ${a.verified ? (a.active ? 'on' : 'off') : 'pv'}">${a.active ? T('Active', 'Активен', "Actif") : T('Closed', 'Закрыт', "Clôturé")}</span></div>
+    <div class="top"><span class="nm">${a.name}</span><span class="pill ${a.verified ? (a.active ? 'on' : 'off') : 'pv'}">${a.active ? T('Active', 'Активен', "Actif", "Activa", "Aktiv") : T('Closed', 'Закрыт', "Clôturé", "Cerrada", "Geschlossen")}</span></div>
     <div class="g ${a.gain < 0 ? 'down' : ''}">${pct(a.gain)}</div>
     ${spark(a.s)}
-    <div class="meta"><span>${fmtMon(a.from)} – ${a.active ? T('now', 'сейчас', "maintenant") : fmtMon(a.to)}</span><span>${T('Max DD', 'Макс. просадка', "DD max")} ${Math.abs(a.dd).toFixed(1)}%</span></div>
+    <div class="meta"><span>${fmtMon(a.from)} – ${a.active ? T('now', 'сейчас', "maintenant", "ahora", "jetzt") : fmtMon(a.to)}</span><span>${T('Max DD', 'Макс. просадка', "DD max", "DD máx", "Max. DD")} ${Math.abs(a.dd).toFixed(1)}%</span></div>
   </button>`).join('') + privCard();
   $('cards').querySelectorAll('.card[data-k]').forEach(b => b.onclick = () => { sel = b.dataset.k; renderCards(); renderDetail(); $('detail').scrollIntoView({behavior: 'smooth', block: 'start'}); });
 }
@@ -366,14 +444,14 @@ function renderDetail(){
   const a = accList().find(x => x.k === sel); if (!a) return;
   $('detail').hidden = false;
   $('dName').textContent = a.name;
-  $('dSub').textContent = T(`VERIFIED BY MYFXBOOK · ${a.active ? 'ACTIVE' : 'CLOSED'}`, `ПРОВЕРЕНО MYFXBOOK · ${a.active ? 'АКТИВЕН' : 'ЗАКРЫТ'}`, `VÉRIFIÉ PAR MYFXBOOK · ${a.active ? 'ACTIF' : 'CLÔTURÉ'}`);
+  $('dSub').textContent = T(`VERIFIED BY MYFXBOOK · ${a.active ? 'ACTIVE' : 'CLOSED'}`, `ПРОВЕРЕНО MYFXBOOK · ${a.active ? 'АКТИВЕН' : 'ЗАКРЫТ'}`, `VÉRIFIÉ PAR MYFXBOOK · ${a.active ? 'ACTIF' : 'CLÔTURÉ'}`, `VERIFICADO POR MYFXBOOK · ${a.active ? 'ACTIVA' : 'CERRADA'}`, `VON MYFXBOOK VERIFIZIERT · ${a.active ? 'AKTIV' : 'GESCHLOSSEN'}`);
   $('dLink').href = a.url;
   const ms = monthsOf(a.s), best = Math.max(...ms.map(m => m.b / m.a - 1)) * 100;
   const acc = DATA.accounts[a.k];
-  $('dFacts').innerHTML = [[T('Total gain', 'Общий рост', "Gain total"), pct(a.gain)], [T('Max drawdown', 'Макс. просадка', "Drawdown max"), '−' + Math.abs(a.dd).toFixed(1) + '%'], [T('Avg. month', 'Средний месяц', "Mois moyen"), acc.monthly], [T('Best month', 'Лучший месяц', "Meilleur mois"), pct(best)]]
+  $('dFacts').innerHTML = [[T('Total gain', 'Общий рост', "Gain total", "Ganancia total", "Gesamtgewinn"), pct(a.gain)], [T('Max drawdown', 'Макс. просадка', "Drawdown max", "Drawdown máx", "Max. Drawdown"), '−' + Math.abs(a.dd).toFixed(1) + '%'], [T('Avg. month', 'Средний месяц', "Mois moyen", "Mes promedio", "Ø Monat"), acc.monthly], [T('Best month', 'Лучший месяц', "Meilleur mois", "Mejor mes", "Bester Monat"), pct(best)]]
     .map(([t, v]) => `<div><dt>${t}</dt><dd>${v}</dd></div>`).join('');
-  if (view === 'growth') chart($('dChart'), a.s.map(p => ({d: p.d, v: (p.i - 1) * 100})), {fmt: v => pct(v), label: T('Account growth', 'Рост счёта', "Croissance du compte"), zero: true});
-  else { let pk = 1; chart($('dChart'), a.s.map(p => { pk = Math.max(pk, p.i); return {d: p.d, v: (p.i / pk - 1) * 100}; }), {fmt: v => v.toFixed(1) + '%', label: T('Drawdown from peak', 'Просадка от пика', "Drawdown depuis le pic"), neg: true}); }
+  if (view === 'growth') chart($('dChart'), a.s.map(p => ({d: p.d, v: (p.i - 1) * 100})), {fmt: v => pct(v), label: T('Account growth', 'Рост счёта', "Croissance du compte", "Crecimiento de la cuenta", "Kontowachstum"), zero: true});
+  else { let pk = 1; chart($('dChart'), a.s.map(p => { pk = Math.max(pk, p.i); return {d: p.d, v: (p.i / pk - 1) * 100}; }), {fmt: v => v.toFixed(1) + '%', label: T('Drawdown from peak', 'Просадка от пика', "Drawdown depuis le pic", "Drawdown desde el pico", "Drawdown vom Hoch"), neg: true}); }
   $('dMonths').innerHTML = ms.slice().reverse().map(m => { const g = (m.b / m.a - 1) * 100; return `<tr><td>${fmtMon(m.m + '-01')}</td><td class="${g >= 0 ? 'up' : 'down'}">${pct(g)}</td></tr>`; }).join('');
 }
 document.querySelectorAll('.subtabs .tab').forEach(b => b.onclick = () => { view = b.dataset.v; document.querySelectorAll('.subtabs .tab').forEach(t => t.setAttribute('aria-pressed', t === b)); renderDetail(); });
@@ -381,17 +459,17 @@ document.querySelectorAll('.subtabs .tab').forEach(b => b.onclick = () => { view
 function renderTotal(){
   const days = R.days.filter(x => x.d >= R.firstReal), last = days.at(-1);
   $('totResult').textContent = money(R.result);
-  $('totGrowth').innerHTML = `<span class="up">${pct((last.idx / days[0].idx - 1) * 100)}</span> ${T('combined growth since', 'общий рост с', "croissance cumulée depuis le")} ${fmtDate(days[0].d)}`;
-  $('totFacts').innerHTML = [[T('Deposited', 'Внесено', "Déposé"), R.dep], [T('Withdrawn', 'Выведено', "Retiré"), R.wd], [T('On accounts now', 'Сейчас на счетах', "Sur les comptes"), R.now], [T('Capital + withdrawn', 'Капитал + выводы', "Capital + retraits"), R.now + R.wd]]
+  $('totGrowth').innerHTML = `<span class="up">${pct((last.idx / days[0].idx - 1) * 100)}</span> ${T('combined growth since', 'общий рост с', "croissance cumulée depuis le", "crecimiento conjunto desde el", "Gesamtwachstum seit")} ${fmtDate(days[0].d)}`;
+  $('totFacts').innerHTML = [[T('Deposited', 'Внесено', "Déposé", "Depositado", "Eingezahlt"), R.dep], [T('Withdrawn', 'Выведено', "Retiré", "Retirado", "Ausgezahlt"), R.wd], [T('On accounts now', 'Сейчас на счетах', "Sur les comptes", "En las cuentas", "Aktuell auf den Konten"), R.now], [T('Capital + withdrawn', 'Капитал + выводы', "Capital + retraits", "Capital + retiros", "Kapital + Auszahlungen"), R.now + R.wd]]
     .map(([t, v]) => `<div><dt>${t}</dt><dd>${money(v)}</dd></div>`).join('');
-  chart($('totChart'), days.map(x => ({d: x.d, v: x.tot + x.wd, v2: x.tot})), {label: T('Total capital over time', 'Общий капитал', "Capital total dans le temps"), zero: true});
+  chart($('totChart'), days.map(x => ({d: x.d, v: x.tot + x.wd, v2: x.tot})), {label: T('Total capital over time', 'Общий капитал', "Capital total dans le temps", "Capital total en el tiempo", "Gesamtkapital im Zeitverlauf"), zero: true});
   const lastMfx = Object.values(DATA.accounts).map(a => a.bal.at(-1)[0]).sort().pop();
-  $('stamp').textContent = T(`Live data to ${fmtDate(lastMfx)} · updated ${fmtDate(DATA.updated)}`, `Данные по ${fmtDate(lastMfx)} · обновлено ${fmtDate(DATA.updated)}`, `Données en direct jusqu'au ${fmtDate(lastMfx)} · mis à jour le ${fmtDate(DATA.updated)}`);
+  $('stamp').textContent = T(`Live data to ${fmtDate(lastMfx)} · updated ${fmtDate(DATA.updated)}`, `Данные по ${fmtDate(lastMfx)} · обновлено ${fmtDate(DATA.updated)}`, `Données en direct jusqu'au ${fmtDate(lastMfx)} · mis à jour le ${fmtDate(DATA.updated)}`, `Datos en vivo hasta el ${fmtDate(lastMfx)} · actualizado el ${fmtDate(DATA.updated)}`, `Live-Daten bis ${fmtDate(lastMfx)} · aktualisiert ${fmtDate(DATA.updated)}`);
 }
 
 function renderTabs(){
   const t = k => { const s = accSeries(k); return pct((s.at(-1).i / s[0].i - 1) * 100); };
-  const tabs = [['all', T('All accounts', 'Все счета', "Tous les comptes")], ['jt4', 'JT #4'], ['jtpro2', 'JT PRO #2']];
+  const tabs = [['all', T('All accounts', 'Все счета', "Tous les comptes", "Todas las cuentas", "Alle Konten")], ['jt4', 'JT #4'], ['jtpro2', 'JT PRO #2']];
   $('tabs').innerHTML = tabs.map(([k, n]) => `<button class="tab" type="button" data-k="${k}" aria-pressed="${k === cur}">${n}<span class="g">${t(k)}</span></button>`).join('');
   $('tabs').querySelectorAll('.tab').forEach(b => b.onclick = () => { cur = b.dataset.k; setupCalc(true); });
 }
@@ -408,15 +486,15 @@ function calc(){
   let i = 0; while (i + 1 < s.length && s[i + 1].d <= start) i++;
   const pts = s.slice(i).map(p => ({d: p.d, v: amt * p.i / s[i].i}));
   const end = pts.at(-1).v, diff = end - amt, p = amt ? diff / amt * 100 : 0;
-  $('resLbl').textContent = T(`VALUE ON ${fmtDate(pts.at(-1).d)} IF YOU STARTED ${fmtDate(pts[0].d)}`, `СУММА НА ${fmtDate(pts.at(-1).d)} ПРИ СТАРТЕ ${fmtDate(pts[0].d)}`, `VALEUR AU ${fmtDate(pts.at(-1).d)} SI TU AVAIS COMMENCÉ LE ${fmtDate(pts[0].d)}`).toUpperCase();
+  $('resLbl').textContent = T(`VALUE ON ${fmtDate(pts.at(-1).d)} IF YOU STARTED ${fmtDate(pts[0].d)}`, `СУММА НА ${fmtDate(pts.at(-1).d)} ПРИ СТАРТЕ ${fmtDate(pts[0].d)}`, `VALEUR AU ${fmtDate(pts.at(-1).d)} SI TU AVAIS COMMENCÉ LE ${fmtDate(pts[0].d)}`, `VALOR AL ${fmtDate(pts.at(-1).d)} SI EMPEZABAS EL ${fmtDate(pts[0].d)}`, `WERT AM ${fmtDate(pts.at(-1).d)} BEI START AM ${fmtDate(pts[0].d)}`).toUpperCase();
   $('resVal').textContent = money(end);
   const low = Math.min(...pts.map(q => q.v));
-  $('resDelta').innerHTML = `<span class="${diff >= 0 ? 'up' : 'down'}">${diff >= 0 ? '+' : '−'}${money(Math.abs(diff))} (${pct(p)})</span>` + (low < amt ? ` <span style="color:var(--muted)">· ${T('lowest point on the way', 'самая низкая точка по пути', "point le plus bas sur la période")} ${money(low)}</span>` : '');
-  chart($('calcChart'), pts, {base: amt, label: T('Your deposit over time', 'Твой депозит во времени', "Ton dépôt dans le temps")});
+  $('resDelta').innerHTML = `<span class="${diff >= 0 ? 'up' : 'down'}">${diff >= 0 ? '+' : '−'}${money(Math.abs(diff))} (${pct(p)})</span>` + (low < amt ? ` <span style="color:var(--muted)">· ${T('lowest point on the way', 'самая низкая точка по пути', "point le plus bas sur la période", "punto más bajo del camino", "tiefster Punkt unterwegs")} ${money(low)}</span>` : '');
+  chart($('calcChart'), pts, {base: amt, label: T('Your deposit over time', 'Твой депозит во времени', "Ton dépôt dans le temps", "Tu depósito en el tiempo", "Deine Einzahlung im Zeitverlauf")});
   const ms = []; let prev = amt;
   for (const q of pts) { const m = q.d.slice(0, 7); let r = ms.at(-1); if (!r || r.m !== m) { r = {m, a: prev, b: q.v}; ms.push(r); } r.b = q.v; prev = q.v; }
   const mx = Math.max(...ms.map(r => Math.abs(r.b / r.a - 1)), .01), wins = ms.filter(r => r.b >= r.a).length;
-  $('mLbl').textContent = T(`MONTH BY MONTH WITH ${money(amt)} · ${wins} OF ${ms.length} MONTHS IN PROFIT`, `ПО МЕСЯЦАМ С ${money(amt)} · ${wins} ИЗ ${ms.length} МЕСЯЦЕВ В ПЛЮСЕ`, `MOIS PAR MOIS AVEC ${money(amt)} · ${wins} MOIS SUR ${ms.length} EN GAIN`);
+  $('mLbl').textContent = T(`MONTH BY MONTH WITH ${money(amt)} · ${wins} OF ${ms.length} MONTHS IN PROFIT`, `ПО МЕСЯЦАМ С ${money(amt)} · ${wins} ИЗ ${ms.length} МЕСЯЦЕВ В ПЛЮСЕ`, `MOIS PAR MOIS AVEC ${money(amt)} · ${wins} MOIS SUR ${ms.length} EN GAIN`, `MES A MES CON ${money(amt)} · ${wins} DE ${ms.length} MESES EN GANANCIA`, `MONAT FÜR MONAT MIT ${money(amt)} · ${wins} VON ${ms.length} MONATEN IM PLUS`);
   $('mRows').innerHTML = ms.slice().reverse().map(r => { const g = r.b / r.a - 1, w = Math.max(3, Math.round(Math.abs(g) / mx * 60));
     return `<tr><td>${fmtMon(r.m + '-01')}</td><td><span class="bar ${g < 0 ? 'neg' : ''}" style="width:${w}px"></span>${pct(g * 100)}</td><td class="${g >= 0 ? 'up' : 'down'}">${g >= 0 ? '+' : '−'}${money(Math.abs(r.b - r.a))}</td><td>${money(r.b)}</td></tr>`; }).join('');
 }
@@ -436,7 +514,7 @@ Promise.all([fetch('data.json' + bust).then(r => r.json()), fetch('exchange.json
     DATA = d; ENTRIES = ex.entries || []; R = jtEngine(DATA, []); // totals + calculator count Myfxbook-verified accounts only; private broker entries show in their own card
     applyLang(); setupCalc(true);
   })
-  .catch(() => { $('cards').innerHTML = `<div class="loading">${T('Could not load live data. Refresh the page.', 'Не удалось загрузить данные. Обнови страницу.', "Impossible de charger les données. Actualise la page.")}</div>`; });
+  .catch(() => { $('cards').innerHTML = `<div class="loading">${T('Could not load live data. Refresh the page.', 'Не удалось загрузить данные. Обнови страницу.', "Impossible de charger les données. Actualise la page.", "No se pudieron cargar los datos. Actualiza la página.", "Live-Daten konnten nicht geladen werden. Lade die Seite neu.")}</div>`; });
 </script>
 </body>
 </html>
